@@ -19,7 +19,7 @@ include("header.php");
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalCenterTitle">Categoria</h5>
-                                <button type="button" class="close" data-dismiss="modal">
+                                <button type="button" onclick="cancelarform()" class="close" data-dismiss="modal">
                                     <i class="anticon anticon-close"></i>
                                 </button>
                             </div>
@@ -27,7 +27,7 @@ include("header.php");
                                 <p>Asegurate de escribir bien el nombre de la categoría.</p>
                                 <br>  
                                 <form name="formulario" id="formulario" method="POST">
-                                <input type="text" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                         <br>
                                     <div class="input-group mb-3">
                                         
@@ -37,12 +37,11 @@ include("header.php");
                                         
                                         <input type="text" name="nombre_categoria" id="nombre_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     </div>
-                                </form>
-                                
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelarform()">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar</button>
+                                </form>
                             </div>
                         </div>
                     </div>

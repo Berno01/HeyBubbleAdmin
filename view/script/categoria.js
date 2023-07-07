@@ -16,7 +16,7 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#nombre").val("");
+	$("#nombre_categoria").val("");
 	$("#id_categoria").val("");
 }
 
@@ -26,10 +26,13 @@ function mostrarform(flag)
 	limpiar();
 	if (flag)
 	{
-		$("#listadoregistros").hide();
-		$("#formularioregistros").show();
-		$("#btnGuardar").prop("disabled",false);
-		$("#btnagregar").hide();
+		
+		$('#exampleModalCenter').modal('show');
+		
+	}
+	else
+	{
+		$('#exampleModalCenter').modal('hide');
 	}
 }
 
