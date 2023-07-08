@@ -27,8 +27,8 @@ include("header.php");
                                 <p>Asegurate de escribir bien el nombre de la categoría.</p>
                                 <br>  
                                 <form name="formulario" id="formulario" method="POST">
-                                    <input type="text" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        <br>
+                                    <input type="text" hidden style="display: none;" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    
                                     <div class="input-group mb-3">
                                         
                                         <div class="input-group-prepend">

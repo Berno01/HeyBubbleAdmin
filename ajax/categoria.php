@@ -15,9 +15,9 @@ switch ($_GET["op"]){
  		while ($reg = pg_fetch_assoc($rspta)){			
 			$data[]=array(
 				"1"=>($reg['estado_categoria']=='t')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_categoria'].')"><i class="anticon anticon-edit"></i></button>'.
-					'<button class="btn btn-icon btn-hover btn-sm btn-rounded" onclick="desactivar('.$reg['id_categoria'].')"><i class="anticon anticon-delete"></i></button>':
-					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_categoria'].')"><i class="bx bx-pencil"></i></button>'.
-					'<button class="btn btn-primary" onclick="activar('.$reg['id_categoria'].')"><i class="bx bxs-check-square"></i></button>',
+					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_categoria'].')"><i class="anticon anticon-delete"></i></button>':
+					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_categoria'].')"><i class="anticon anticon-edit"></i></button>'.
+					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_categoria'].')"><i class="anticon anticon-delete"></i></button>',
 				"0"=>$reg['nombre_categoria'],
 				"2"=>$reg['id_categoria']
 				

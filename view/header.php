@@ -15,6 +15,10 @@
     <!-- Core css -->
     <link href="../public/css/app.min.css" rel="stylesheet">
 
+    <!-- Sweet Alert-->
+    <link href="../public/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+        
+
 </head>
 
 <body>
@@ -287,6 +291,18 @@
                                     <a href="tooltips.html">Tooltips</a>
                                 </li>
                             </ul>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-hdd"></i>
+                                </span>
+                                <span href="proveedor.php" class="title">Proveedores</span>
+                                
+                            </a>
+                            
                         </li>
                         
                         
