@@ -294,8 +294,8 @@
                         </li>
 
 
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
+                        <li class="nav-item">
+                            <a class="dropdown-toggle" href="proveedor.php">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-hdd"></i>
                                 </span>
