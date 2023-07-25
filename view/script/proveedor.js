@@ -28,11 +28,8 @@ function mostrarform(flag)
 	{
 		$('#exampleModalCenter').modal('hide');
 	}
+    
 }
-
-
-
-
 
 function listarProveedor() {
     fetch('../ajax/proveedor.php?op=0')
@@ -46,8 +43,6 @@ function listarProveedor() {
                     var datos = data.aaData;
                     
                     var div = document.getElementById('listaProveedor');
-
-                    //div.innerHTML = '<p>'+datos[0][0]+'</p>';
 
 
                     datos.forEach(item => {
@@ -82,5 +77,143 @@ function listarProveedor() {
                 });
 }
 
+
+function guardaryeditar(e)
+{
+	e.preventDefault(); //No se activará la acción predeterminada del evento
+	//$("#btnGuardar").prop("disabled",true);
+	var formData = new FormData($("#formulario")[0]);
+
+	$.ajax({
+		url: "../ajax/proveedor.php?op=1",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+
+	    success: function(datos)
+	    {    
+			mensaje=datos.split(":");
+			if(mensaje[0]=="1"){               
+			swal.fire(
+				'Mensaje de Confirmación',
+				mensaje[1],
+				'success'
+                );           
+	          mostrarform(false);
+              setTimeout(function() {
+                location.reload();
+              }, 1200);
+            
+			}
+			else{
+				Swal.fire({
+					type: 'error',
+					title: 'Error',
+					text: mensaje[1],
+					footer: 'Verifique la información de Registro, en especial que la información no fué ingresada previamente a la Base de Datos.'
+				});
+			}
+            
+	    }
+    });
+	limpiar();
+    
+}
+
+function mostrar(id_proveedor)
+{
+	$.post("../ajax/proveedor.php?op=4",{id_proveedor : id_proveedor}, function(data, status)
+	{
+		data = JSON.parse(data);		
+		mostrarform(true);
+
+		$("#nombre_proveedor").val(data.nombre_proveedor);
+ 		$("#id_proveedor").val(data.id_proveedor);
+        $("#descripcion_proveedor").val(data.descripcion_proveedor);
+        $("#telef_proveedor").val(data.telef_proveedor);
+        
+ 	});
+}
+
+
+function desactivar(id_proveedor)
+{
+	swal.fire({
+		title: 'Mensaje de Confirmación',
+		text: "¿Desea desactivar el Proveedor?",
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Desactivar'
+	}).then((result) => {
+		if (result.value) {
+			$.post("../ajax/proveedor.php?op=2", {id_proveedor : id_proveedor}, function(e){
+				mensaje=e.split(":");
+					if(mensaje[0]=="1"){  
+						swal.fire(
+							'Mensaje de Confirmación',
+							mensaje[1],
+							'success'
+						);
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1200);  
+						
+					}	
+					else{
+						Swal.fire({
+							type: 'error',
+							title: 'Error',
+							text: mensaje[1],
+							footer: 'Verifique la información de Registro, en especial que la información no fué ingresada previamente a la Base de Datos.'
+						});
+					}			
+        	});	
+		}
+	});   
+}
+
+//Función para activar registros
+function activar(id_proveedor)
+{
+	swal.fire({
+		title: 'Mensaje de Confirmación',
+		text: "¿Desea activar el Proveedor?",
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		cancelButtonText: 'Cancelar',
+		confirmButtonText: 'Activar'
+	}).then((result) => {
+		if (result.value) {
+			$.post("../ajax/proveedor.php?op=3", {id_proveedor : id_proveedor}, function(e){
+				mensaje=e.split(":");
+					if(mensaje[0]=="1"){  
+						swal.fire(
+							'Mensaje de Confirmación',
+							mensaje[1],
+							'success'
+						);  
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1200);
+						
+					}	
+					else{
+						Swal.fire({
+							type: 'error',
+							title: 'Error',
+							text: mensaje[1],
+							footer: 'Verifique la información de Registro, en especial que la información no fué ingresada previamente a la Base de Datos.'
+						});
+					}			
+        	});	
+		}
+	}); 
+}
 
 init()

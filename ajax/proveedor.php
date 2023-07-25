@@ -5,6 +5,9 @@ $proveedor=new Proveedor();
 
 $id_proveedor=isset($_POST["id_proveedor"])? $_POST["id_proveedor"]:"";
 $nombre_proveedor=isset($_POST["nombre_proveedor"])? mb_strtoupper($_POST["nombre_proveedor"]):"";
+$descripcion_proveedor=isset($_POST["descripcion_proveedor"])? mb_strtoupper($_POST["descripcion_proveedor"]):"";
+$telef_proveedor=isset($_POST["telef_proveedor"])? mb_strtoupper($_POST["telef_proveedor"]):"";
+
 
 switch ($_GET["op"]){
 	case '0':
@@ -33,28 +36,28 @@ switch ($_GET["op"]){
 
 	break;
 	case '1':
-		if (empty($id_categoria)){
-			$rspta=$categoria->insertar($nombre_categoria);
+		if (empty($id_proveedor)){
+			$rspta=$proveedor->insertar($nombre_proveedor, $descripcion_proveedor, $telef_proveedor);
 			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:a acción para la Hoja de Ruta no fué registrada";
 		}
 		else {
-			$rspta=$categoria->editar($id_categoria,$nombre_categoria);
+			$rspta=$proveedor->editar($id_proveedor,$nombre_proveedor, $descripcion_proveedor, $telef_proveedor);
 			echo $rspta ? "1:a acción para la Hoja de Ruta fué actualizada" : "0:a acción para la Hoja de Ruta no fué actualizada";
 		}
 	break;
 
 	case '2':
-		$rspta=$categoria->desactivar($id_categoria);
+		$rspta=$proveedor->desactivar($id_proveedor);
  		echo $rspta ? "1:a acción para la Hoja de Ruta fué Desactivada" : "0:a acción para la Hoja de Ruta no fué Desactivada";
 	break;
 
 	case '3':
-		$rspta=$categoria->activar($id_categoria);
+		$rspta=$proveedor->activar($id_proveedor);
  		echo $rspta ? "1:a acción para la Hoja de Ruta fué Activada" : "0:a acción para la Hoja de Ruta no fué Activada";
 	break;
 
 	case '4':
-		$rspta=$categoria->mostrar($id_categoria);
+		$rspta=$proveedor->mostrar($id_proveedor);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
