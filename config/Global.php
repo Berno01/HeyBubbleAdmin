@@ -4,7 +4,7 @@
 define("DB_HOST","localhost");
 
 //Nombre de la base de datos
-define("DB_NAME", "AutomotivosJyB");
+define("DB_NAME", "automotivosjyb");
 
 //Usuario de la base de datos
 define("DB_USERNAME", "postgres");
