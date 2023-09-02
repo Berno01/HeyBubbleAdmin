@@ -26,19 +26,35 @@ include("header.php");
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Asegurate de escribir bien el nombre de la categoría.</p>
+                                <p>Asegurate de ingresar cuidadosamente la informacion del repuesto.</p>
                                 <br>  
                                 <form name="formulario" id="formulario" method="POST">
-                                    <input type="text" hidden style="display: none;" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" hidden style="display: none;" name="id_repuesto" id="id_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     
+                                    <div class="input-group mb-3">
+                                        
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre del repuesto: </span>
+                                        </div>
+                                        
+                                        <input type="text" name="nombre_repuesto" id="nombre_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    </div>
+
                                     <div class="input-group mb-3">
                                         
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Categoría: </span>
                                         </div>
                                         
-                                        <input type="text" name="nombre_categoria" id="nombre_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                        <select class="form-control" name="state">
+                                            <option value="AP">Apples</option>
+                                            <option value="NL">Nails</option>
+                                            <option value="BN">Bananas</option>
+                                            <option value="HL">Helicopters</option>
+                                        </select>
                                     </div>
+                                        
+                                    
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelarform()">Cerrar</button>
@@ -79,5 +95,6 @@ include("header.php");
 include("footer.php");
 ?>
 <script type="text/javascript" src="script/repuesto.js"></script> 
+<script src="../public/vendors/select2/select2.min.js"></script>
                                 
                                 
