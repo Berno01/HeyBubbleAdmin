@@ -32,27 +32,27 @@ include("header.php");
                                     <input type="text" hidden style="display: none;" name="id_repuesto" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     
                                     <div class="input-group mb-3">
-                                        
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Nombre del repuesto: </span>
-                                        </div>
-                                        <input type="text" name="nombre_repuesto" id="nombre_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Codigo: </span>
-                                        </div>
-                                        <input type="text" name="nombre_repuesto" id="nombre_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                    </div>
-
-                                    <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Categoria: </span>
                                         </div>
                                         <input type="text" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                         <select name="categoria" id="categoria">
                                         </select>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Codigo: </span>
+                                        </div>
+                                        <input type="text" name="codigo_repuesto" id="codigo_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Marca del repuesto: </span>
+                                        </div>
+                                        <input type="text" name="marca_repuesto" id="marca_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     </div>
 
                                     <div class="input-group mb-3">
