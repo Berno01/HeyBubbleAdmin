@@ -17,6 +17,9 @@
 
     <!-- Sweet Alert-->
     <link href="../public/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="../public/vendors/select2/select2.css" rel="stylesheet">
+
         
 
 </head>
