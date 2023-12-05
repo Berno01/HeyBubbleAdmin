@@ -233,7 +233,7 @@
                                     <a href="categoria.php">Ver categorias</a>
                                 </li>
                                 <li>
-                                    <a href="app-mail.html">klk</a>
+                                    <a href="marca.php">Ver marcas</a>
                                 </li>
                                 
                             </ul>

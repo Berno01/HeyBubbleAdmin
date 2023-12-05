@@ -53,6 +53,8 @@ include("header.php");
                                             <span class="input-group-text" id="inputGroup-sizing-default">Marca del repuesto: </span>
                                         </div>
                                         <input type="text" name="marca_repuesto" id="marca_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                        <select name="categoria" id="categoria">
+                                        </select>
                                     </div>
 
                                     <div class="input-group mb-3">

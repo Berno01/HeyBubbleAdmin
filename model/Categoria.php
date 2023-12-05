@@ -64,7 +64,7 @@ Class Categoria
 
 	public function select()
 	{
-		$sql="SELECT id_categoria, nombre_categoria FROM categoria ORDER BY nombre_categoria ASC";
+		$sql="SELECT id_categoria, nombre_categoria FROM categoria WHERE estado_categoria=TRUE ORDER BY nombre_categoria ASC";
 		return ejecutarConsulta($sql);		
 	}
 
