@@ -1,7 +1,7 @@
 <?php 
-require_once "../model/marca.php";
+require_once "../model/Marca.php";
 
-$marca=new marca();
+$marca=new Marca();
 
 $id_marca=isset($_POST["id_marca"])? $_POST["id_marca"]:"";
 $nombre_marca=isset($_POST["nombre_marca"])? mb_strtoupper($_POST["nombre_marca"]):"";
@@ -12,9 +12,9 @@ switch ($_GET["op"]){
  		//Vamos a declarar un array
  		$data= Array();
 
- 		while ($reg = pg_fetch_assoc($rspta)){			
+ 		while ($reg = mysqli_fetch_assoc($rspta)){			
 			$data[]=array(
-				"1"=>($reg['estado_marca']=='t')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
+				"1"=>($reg['estado_marca']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_marca'].')"><i class="anticon anticon-delete"></i></button>':
 					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_marca'].')"><i class="anticon anticon-delete"></i></button>',
@@ -60,7 +60,7 @@ switch ($_GET["op"]){
 
 	case '5':
 		$rspta = $marca->select();
-		while ($reg = pg_fetch_assoc($rspta))
+		while ($reg = mysqli_fetch_assoc($rspta))
 		{
 			echo '<option value=' . $reg['id_marca'] . '>' . $reg['nombre_marca'] . '</option>';
 		}

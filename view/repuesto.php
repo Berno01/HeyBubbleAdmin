@@ -35,10 +35,10 @@ include("header.php");
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Categoria: </span>
                                         </div>
-                                        <input type="text" name="id_categoria" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        <select name="categoria" id="categoria">
+                                        <select id="categoria" name="categoria" class="form-control" data-live-search="true" required>
                                         </select>
                                     </div>
+
 
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -52,8 +52,8 @@ include("header.php");
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Marca del repuesto: </span>
                                         </div>
-                                        <input type="text" name="marca_repuesto" id="marca_repuesto" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                                        <select name="categoria" id="categoria">
+                                        
+                                        <select name="marca" id="marca" class="form-control" data-live-search="true" required>
                                         </select>
                                     </div>
 

@@ -1,7 +1,7 @@
 <?php 
 
-require_once "global.php";
-$conexion = pg_connect("host=".DB_HOST." port=".DB_PORT." dbname=".DB_NAME." user=".DB_USERNAME." password=".DB_PASSWORD."");
+require_once "Global.php";
+$conexion = mysqli_connect("localhost", "root", "", "tienda");
 
 if (!$conexion)
 {
@@ -14,23 +14,23 @@ if (!function_exists('ejecutarConsulta'))
 	function ejecutarConsulta($sql)
 	{
 		global $conexion;
-		$query = pg_query($conexion, $sql);
+		$query = mysqli_query($conexion, $sql);
 		return $query;
 	}
 
 	function ejecutarConsultaSimpleFila($sql)
 	{
 		global $conexion;
-		$query = pg_query($conexion, $sql);
-		$row = pg_fetch_assoc($query);
+		$query = mysqli_query($conexion, $sql);
+		$row = mysqli_fetch_assoc($query);
 		return $row;
 	}
 
 	function ejecutarConsulta_retornarID($sql)
 	{
 		global $conexion;
-		$query = pg_query($conexion, $sql);
-		$row = pg_fetch_array($query);
+		$query = mysqli_query($conexion, $sql);
+		$row = mysqli_fetch_array($query);
 		$new_id = $row['0'];
 		return $new_id;
 	}
@@ -38,7 +38,7 @@ if (!function_exists('ejecutarConsulta'))
 	function cerrar_conexion($sql)
 	{
 		global $conexion;
-		pg_close($conexion);
+		mysqli_close($conexion);
 		return true;
 	}
 	

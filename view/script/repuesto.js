@@ -7,9 +7,18 @@ function init(){
 	
 
 	$('#nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
-    $('.select2').select2();
+    
 	mostrarform(false);
-    listar();
+    //listar();
+	$.post("../ajax/categoria.php?op=5", function(r){
+	    $("#categoria").html(r);
+		$('#categoria').trigger('change.select2');
+	});
+	$.post("../ajax/marca.php?op=5", function(r){
+	    $("#marca").html(r);
+		$('#marca').trigger('change.select2');
+	});
+
     $("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
