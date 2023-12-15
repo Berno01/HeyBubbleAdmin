@@ -3,18 +3,26 @@
 <?php
 include("header.php");
 ?> 
+<button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    <i class="anticon anticon-plus-circle m-r-5"></i>
+    <span>Agregar Repuesto</span>
+</button>
 <div class="card">
     <div class = "card-body">
+        <table id="data-table" class="table table-hover e-commerce-table">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Codigo</th>
+                    <th>Marca</th>
+                    <th>Medida</th>
+                    <th>Stock</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>                 
+        </table>
 
-        <div class="row m-b-30">
-            <div class="col-lg-4 text-left">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    <i class="anticon anticon-plus-circle m-r-5"></i>
-                    <span>Agregar Repuesto</span>
-                </button>
-
-                
-
+        
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalCenter">
                     <div class="modal-dialog modal-dialog-centered">
@@ -29,7 +37,7 @@ include("header.php");
                                 <p>Asegurate de escribir bien el nombre del repuesto.</p>
                                 <br>  
                                 <form name="formulario" id="formulario" method="POST">
-                                    <input type="text" hidden style="display: none;" name="id_repuesto" id="id_categoria" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" hidden name="id_repuesto" id="id_repuesto">
                                     
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -99,27 +107,6 @@ include("header.php");
                     </div>
                 </div>
 
-
-
-
-                
-            </div>
-        </div>
-        
-        <table id="data-table" class="table table-hover e-commerce-table">
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Medida</th>
-                    <th>Stock</th>
-                    <th>Descripcion</th>
-                </tr>
-            </thead>                 
-        </table>
-        
-        
     </div>
     
 </div>

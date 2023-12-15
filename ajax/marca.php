@@ -5,6 +5,7 @@ $marca=new Marca();
 
 $id_marca=isset($_POST["id_marca"])? $_POST["id_marca"]:"";
 $nombre_marca=isset($_POST["nombre_marca"])? mb_strtoupper($_POST["nombre_marca"]):"";
+$descripcion_marca=isset($_POST["descripcion_marca"])? mb_strtoupper($_POST["descripcion_marca"]):"";
 
 switch ($_GET["op"]){
 	case '0':
@@ -14,13 +15,13 @@ switch ($_GET["op"]){
 
  		while ($reg = mysqli_fetch_assoc($rspta)){			
 			$data[]=array(
-				"1"=>($reg['estado_marca']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
+				"2"=>($reg['estado_marca']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_marca'].')"><i class="anticon anticon-delete"></i></button>':
 					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_marca'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_marca'].')"><i class="anticon anticon-delete"></i></button>',
 				"0"=>$reg['nombre_marca'],
-				"2"=>$reg['id_marca']
-				
+				"1"=>$reg['descripcion_marca'],
+				"3"=>$reg['id_marca']
 				);
 		}
  		$results = array(
@@ -33,7 +34,7 @@ switch ($_GET["op"]){
 	break;
 	case '1':
 		if (empty($id_marca)){
-			$rspta=$marca->insertar($nombre_marca);
+			$rspta=$marca->insertar($nombre_marca, $descripcion_marca);
 			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:a acción para la Hoja de Ruta no fué registrada";
 		}
 		else {

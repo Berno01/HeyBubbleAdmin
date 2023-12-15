@@ -32,10 +32,19 @@ include("header.php");
                                     <div class="input-group mb-3">
                                         
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">Categoría: </span>
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Marca: </span>
                                         </div>
                                         
                                         <input type="text" name="nombre_marca" id="nombre_marca" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroup-sizing-default">Descripcion: </span>
+                                        </div>
+                                        
+                                        <input type="text" name="descripcion_marca" id="descripcion_marca" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                                     </div>
                             </div>
                             <div class="modal-footer">
@@ -58,6 +67,7 @@ include("header.php");
             <thead>
                 <tr>
                     <th>Nombre</th>
+                    <th>Descripcion</th>
                     <th>Opciones</th>
                 </tr>
             </thead>                 

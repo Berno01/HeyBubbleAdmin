@@ -115,6 +115,7 @@ function mostrar(id_marca)
 
 		$("#nombre_marca").val(data.nombre_marca);
  		$("#id_marca").val(data.id_marca);
+		$("#descripcion_marca").val(data.descripcion_marca);
  	});
 }
 

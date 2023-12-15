@@ -9,7 +9,7 @@ function init(){
 	$('#nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
     
 	mostrarform(false);
-    //listar();
+    listar();
 	$.post("../ajax/categoria.php?op=5", function(r){
 	    $("#categoria").html(r);
 		$('#categoria').trigger('change.select2');
@@ -28,8 +28,15 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#nombre_repuesto").val("");
 	$("#id_repuesto").val("");
+	$("#categoria").val(0);
+	$("#codigo_repuesto").val("");
+	$("#marca").val(0);
+	$("#medida_repuesto").val("");
+	$("#stock_repuesto").val("");
+	$("#stock_minimo").val("");
+	$("#precio_sugerido").val("");
+	$("#descripcion_repuesto").val("");
 }
 
 //Función mostrar formulario
@@ -83,7 +90,7 @@ function guardaryeditar(e)
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
-
+	
 	$.ajax({
 		url: "../ajax/repuesto.php?op=1",
 	    type: "POST",
@@ -93,6 +100,7 @@ function guardaryeditar(e)
 
 	    success: function(datos)
 	    {    
+			console.log(datos);
 			mensaje=datos.split(":");
 			if(mensaje[0]=="1"){               
 			swal.fire(
@@ -124,9 +132,15 @@ function mostrar(id_repuesto)
 	{
 		data = JSON.parse(data);		
 		mostrarform(true);
-
-		$("#nombre_repuesto").val(data.nombre_repuesto);
- 		$("#id_repuesto").val(data.id_repuesto);
+		$("#id_repuesto").val(data.id_repuesto);
+		$("#categoria").val(data.id_categoria);
+		$("#codigo_repuesto").val(data.codigo_repuesto);
+		$("#marca").val(data.id_marca);
+		$("#medida_repuesto").val(data.medida_repuesto);
+		$("#stock_repuesto").val(data.stock_repuesto);
+		$("#stock_minimo").val(data.stock_minimo);
+		$("#precio_sugerido").val(data.precio_sugerido);
+		$("#descripcion_repuesto").val(data.descripcion_repuesto);
  	});
 }
 

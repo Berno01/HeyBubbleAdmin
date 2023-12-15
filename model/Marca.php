@@ -18,12 +18,12 @@ Class marca
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($nombre_marca)
+	public function insertar($nombre_marca, $descripcion_marca)
 	{
 		$validacion=$this->comprueba_duplicados($nombre_marca,0);
 		if($validacion==0){
-			$sql="INSERT INTO marca (nombre_marca)
-			VALUES ('$nombre_marca')";
+			$sql="INSERT INTO marca (nombre_marca, descripcion_marca)
+			VALUES ('$nombre_marca', '$descripcion_marca')";
 			return ejecutarConsulta($sql);
 		}
 		else{return 0;}
@@ -58,7 +58,7 @@ Class marca
 	//Implementar un método para mostrar los datos de un registro a modificar
 	public function mostrar($id_marca)
 	{
-		$sql="SELECT id_marca, nombre_marca FROM marca WHERE id_marca='$id_marca'";
+		$sql="SELECT * FROM marca WHERE id_marca='$id_marca'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 

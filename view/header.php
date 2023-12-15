@@ -190,31 +190,7 @@
             <div class="side-nav">
                 <div class="side-nav-inner">
                     <ul class="side-nav-menu scrollable">
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-dashboard"></i>
-                                </span>
-                                <span class="title">Dashboard</span>
-                                <span class="arrow">
-                                    <i class="arrow-icon"></i>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li >
-                                    <a href="view/index.html">Default</a>
-                                </li>
-                                <li>
-                                    <a href="view/index-crm.html">CRM</a>
-                                </li>
-                                <li>
-                                    <a href="view/index-e-commerce.html">E-commerce</a>
-                                </li>
-                                <li>
-                                    <a href="view/index-projects.html">Projects</a>
-                                </li>
-                            </ul>
-                        </li>
+                        
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
                                 <span class="icon-holder">
@@ -249,30 +225,11 @@
 								</span>
                             </a>
                             <ul class="dropdown-menu">
+                                
                                 <li>
-                                    <a href="avatar.html">Avatar</a>
+                                    <a href="lists.html">Proximamente</a>
                                 </li>
-                                <li>
-                                    <a href="alert.html">Alert</a>
-                                </li>
-                                <li>
-                                    <a href="badge.html">Badge</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="cards.html">Cards</a>
-                                </li>
-                                <li>
-                                    <a href="icons.html">Icons</a>
-                                </li>
-                                <li>
-                                    <a href="lists.html">Lists</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
+                                
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -288,11 +245,9 @@
                             <ul class="dropdown-menu">
                                 
                                 <li>
-                                    <a href="tabs.html">Tabs</a>
+                                    <a href="tabs.html">Proximamente</a>
                                 </li>
-                                <li>
-                                    <a href="tooltips.html">Tooltips</a>
-                                </li>
+                            
                             </ul>
                         </li>
 
