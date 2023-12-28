@@ -30,11 +30,11 @@ Class marca
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($id_marca,$nombre_marca)
+	public function editar($id_marca,$nombre_marca, $descripcion_marca)
 	{
-		$validacion=$this->comprueba_duplicados($nombre_marca,$id_marca);
+		$validacion=$this->comprueba_duplicados($nombre_marca, $descripcion_marca);
 		if($validacion==0){
-			$sql="UPDATE marca SET nombre_marca='$nombre_marca' 
+			$sql="UPDATE marca SET nombre_marca='$nombre_marca', descripcion_marca='$descripcion_marca' 
 			WHERE id_marca='$id_marca'";
 			return ejecutarConsulta($sql);
 		}
@@ -69,10 +69,10 @@ Class marca
 	}
 
 	//Implementar un método para listar los registros
-	public function comprueba_duplicados($codigo,$id)
+	public function comprueba_duplicados($nombre_marca, $descripcion_marca)
 	{
-		$resultado=0;
-		$sql="SELECT COUNT(id_marca) AS id_marca FROM marca WHERE (nombre_marca='$codigo') AND (id_marca<>$id)";
+		
+		$sql="SELECT COUNT(id_marca) AS id_marca FROM marca WHERE (nombre_marca='$nombre_marca') AND (descripcion_marca='$descripcion_marca')";
 		$resultado = ejecutarConsultaSimpleFila($sql);
 		return $resultado['id_marca'];		
 	}

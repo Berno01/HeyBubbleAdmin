@@ -41,9 +41,9 @@ Class Repuesto
 	public function editar($id_repuesto, $codigo_repuesto, $id_marca, $id_categoria, $descripcion_repuesto, $medida_repuesto,
 	$stock_repuesto, $stock_minimo, $precio_sugerido)
 	{
-		$validacion=0;
-		//$validacion=$this->comprueba_duplicados($nombre_repuesto,$id_repuesto, $id_categoria, $stock, $stock_minimo, $precio_sugerido, $codigo_repuesto,
-        //$medida, $descripcion);
+		
+		$validacion=$this->comprueba_duplicados($codigo_repuesto,$id_marca, $id_categoria, $stock_repuesto, $stock_minimo, $precio_sugerido,
+		$medida_repuesto, $descripcion_repuesto);
 		if($validacion==0){
 			$sql="UPDATE repuesto SET codigo_repuesto='$codigo_repuesto', id_marca=$id_marca,
 			id_categoria=$id_categoria, descripcion_repuesto='$descripcion_repuesto', 
@@ -82,22 +82,16 @@ Class Repuesto
 	}
 
 	//Implementar un método para listar los registros
-	public function comprueba_duplicados($codigo,$id, $id_categoria, $stock, $stock_minimo, $precio_sugerido, $codigo_repuesto,
-    $medida, $descripcion)
+	public function comprueba_duplicados($codigo_repuesto,$id_marca, $id_categoria, $stock_repuesto, $stock_minimo, $precio_sugerido,
+    $medida_repuesto, $descripcion_repuesto)
 	{
-		/*
-		select count(id_repuesto) FROM repuesto WHERE id_categoria = $id_categoria AND 
+		
+		$resultado=0;
+		$sql="select count(id_repuesto) AS id_repuesto FROM repuesto WHERE id_categoria = $id_categoria AND 
 		codigo_repuesto='$codigo_repuesto' AND id_marca = $id_marca AND 
 		medida_repuesto='$medida_repuesto' AND stock_repuesto= $stock_repuesto AND 
 		stock_minimo=$stock_minimo AND precio_sugerido=$precio_sugerido AND 
-		descripcion_repuesto='descripcion_repuesto'
-		*/ 
-		$resultado=0;
-		$sql="SELECT COUNT(id_repuesto) AS id_repuesto FROM repuesto WHERE (nombre_repuesto='$codigo') AND (id_repuesto<>$id)
-        AND (id_categoria='$id_categoria') AND (stock_repuesto='$stock') AND (stock_minimo='$stock_minimo') AND 
-        (precio_sugerido='$precio_sugerido') AND (codigo_repuesto ='$codigo_repuesto') AND (medida='$medida') AND 
-        (descripcion='$descripcion');"
-        ;
+		descripcion_repuesto='$descripcion_repuesto';";
 		$resultado = ejecutarConsultaSimpleFila($sql);
 		return $resultado['id_repuesto'];		
 	}

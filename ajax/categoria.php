@@ -34,11 +34,11 @@ switch ($_GET["op"]){
 	case '1':
 		if (empty($id_categoria)){
 			$rspta=$categoria->insertar($nombre_categoria);
-			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:a acción para la Hoja de Ruta no fué registrada";
+			echo $rspta ? "1:La categoria fue registrada" : "0:Categoria ya registrada";
 		}
 		else {
 			$rspta=$categoria->editar($id_categoria,$nombre_categoria);
-			echo $rspta ? "1:a acción para la Hoja de Ruta fué actualizada" : "0:a acción para la Hoja de Ruta no fué actualizada";
+			echo $rspta ? "1:La categoria fué actualizada" : "0:Categoria ya registrada";
 		}
 	break;
 
@@ -64,6 +64,7 @@ switch ($_GET["op"]){
 		{
 			echo '<option value=' . $reg['id_categoria'] . '>' . $reg['nombre_categoria'] . '</option>';
 		}
+			echo '<option value="crearC">AGREGAR CATEGORIA</option>'; 
 	break;
 }
 ?>

@@ -24,10 +24,10 @@ include("header.php");
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Asegurate de escribir bien el nombre de la categoría.</p>
+                                <p>Asegurate de escribir bien el nombre de la marca.</p>
                                 <br>  
                                 <form name="formulario" id="formulario" method="POST">
-                                    <input type="text" hidden style="display: none;" name="id_marca" id="id_marca" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                    <input type="text" hidden name="id_marca" id="id_marca">
                                     
                                     <div class="input-group mb-3">
                                         

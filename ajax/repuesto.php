@@ -46,12 +46,12 @@ switch ($_GET["op"]){
 		if (empty($id_repuesto)){
 			$rspta=$repuesto->insertar($codigo_repuesto, $id_marca, $id_categoria, $descripcion_repuesto, $medida_repuesto,
             $stock_repuesto, $stock_minimo, $precio_sugerido);
-			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:a acción para la Hoja de Ruta no fué registrada";
+			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:El repuesto ya existe";
 		}
 		else {
 			$rspta=$repuesto->editar($id_repuesto,$codigo_repuesto, $id_marca, $id_categoria, $descripcion_repuesto, $medida_repuesto,
             $stock_repuesto, $stock_minimo, $precio_sugerido);
-			echo $rspta ? "1:a acción para la Hoja de Ruta fué actualizada" : "0:a acción para la Hoja de Ruta no fué actualizada";
+			echo $rspta ? "1:a acción para la Hoja de Ruta fué actualizada" : "0:Ningun cambio registrado";
 		}
 	break;
 

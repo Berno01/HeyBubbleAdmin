@@ -4,25 +4,38 @@ var tabla;
 
 function init(){
     //Para validación
-	
-
-	$('#nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
-    
-	mostrarform(false);
-    listar();
 	$.post("../ajax/categoria.php?op=5", function(r){
 	    $("#categoria").html(r);
-		$('#categoria').trigger('change.select2');
+		//$('#categoria').trigger('change.select2');
 	});
 	$.post("../ajax/marca.php?op=5", function(r){
 	    $("#marca").html(r);
 		$('#marca').trigger('change.select2');
 	});
+	//$('#nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
+    
+	mostrarform(false);
+	mostrarformMarca(false);
+	mostrarformCategoria(false);
+	listar();
+	
 
     $("#formulario").on("submit",function(e)
 	{
 		guardaryeditar(e);	
 	});
+
+	$("#formularioMarca").on("submit",function(e)
+	{
+		guardarMarca(e);	
+	});
+
+	$("#formularioCategoria").on("submit",function(e)
+	{
+		guardarCategoria(e);	
+	});
+	
+	
 }
 
 //Función limpiar
@@ -39,20 +52,49 @@ function limpiar()
 	$("#descripcion_repuesto").val("");
 }
 
+function limpiarMarca()
+{
+	$("#id_marca").val("");
+	$("#nombre_marca").val("");
+	$("#descripcion_marca").val("");	
+}
+
+function limpiarCategoria()
+{
+	$("#id_categoria").val("");
+	$("#nombre_categoria").val("");	
+}
+
+function crearMarca() {
+	var select = document.getElementById("marca");
+    var opcionSeleccionada = select.options[select.selectedIndex].value;
+
+	if (opcionSeleccionada === "crear") {
+		mostrarformMarca(true);
+	}
+}
+
+function crearCategoria() {
+	var select = document.getElementById("categoria");
+    var opcionSeleccionada = select.options[select.selectedIndex].value;
+
+	if (opcionSeleccionada === "crear") {
+		mostrarformCategoria(true);
+	}
+}
+
 //Función mostrar formulario
 function mostrarform(flag)
-{
-	limpiar();
+{	
 	if (flag)
-	{
-		
-		$('#exampleModalCenter').modal('show');
-		
+	{		
+		$('#exampleModalCenter').modal('show');	
 	}
 	else
 	{
 		$('#exampleModalCenter').modal('hide');
 	}
+	
 }
 
 //Función cancelarform
@@ -61,6 +103,140 @@ function cancelarform()
 	limpiar();
 	mostrarform(false);
 }
+
+function mostrarformMarca(flag)
+{
+	limpiarMarca();
+	if (flag)
+	{
+		
+		$('#exampleModalCenterMarca').modal('show');
+		
+	}
+	else
+	{
+		$('#exampleModalCenterMarca').modal('hide');
+	}
+}
+
+function cancelarformMarca()
+{
+	swal.fire(
+		'Mensaje de Confirmación',
+		'success'
+		);           
+	  mostrarformMarca(false);
+}
+
+function guardarMarca(e)
+{
+	e.preventDefault(); //No se activará la acción predeterminada del evento
+	//$("#btnGuardar").prop("disabled",true);
+	var formData = new FormData($("#formularioMarca")[0]);
+
+	$.ajax({
+		url: "../ajax/marca.php?op=1",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+
+	    success: function(datos)
+	    {   
+			mensaje=datos.split(":");
+			if(mensaje[0]=="1"){               
+			swal.fire(
+				'Mensaje de Confirmación',
+				mensaje[1],
+				'success'
+				);           
+	          mostrarformMarca(false);
+			  $.post("../ajax/marca.php?op=5", function(r){
+				$("#marca").html(r);
+				$('#marca').trigger('change.select2');
+			  });
+			}
+			else{
+				Swal.fire({
+					type: 'error',
+					title: 'Error',
+					text: mensaje[1],
+					footer: 'Verifique la información de Registro, en especial que la información no fué ingresada previamente a la Base de Datos.'
+				});
+			}
+	    }
+
+	});
+	limpiarMarca();
+}
+
+
+function mostrarformCategoria(flag)
+{
+	limpiarCategoria();
+	if (flag)
+	{
+		
+		$('#exampleModalCenterCategoria').modal('show');
+		
+	}
+	else
+	{
+		$('#exampleModalCenterCategoria').modal('hide');
+	}
+}
+
+function cancelarformMarca()
+{
+	limpiarCategoria();
+	mostrarformCategoria(false);
+}
+
+function guardarCategoria(e)
+{
+	e.preventDefault(); //No se activará la acción predeterminada del evento
+	//$("#btnGuardar").prop("disabled",true);
+	var formData = new FormData($("#formularioCategoria")[0]);
+
+	$.ajax({
+		url: "../ajax/categoria.php?op=1",
+	    type: "POST",
+	    data: formData,
+	    contentType: false,
+	    processData: false,
+
+	    success: function(datos)
+	    {   
+			mensaje=datos.split(":");
+			if(mensaje[0]=="1"){               
+			swal.fire(
+				'Mensaje de Confirmación',
+				mensaje[1],
+				'success'
+
+				);           
+	          mostrarformCategoria(false);
+			  $.post("../ajax/categoria.php?op=5", function(r){
+				$("#categoria").html(r);
+				$('#categoria').trigger('change.select2');
+			  });
+			}
+			else{
+				Swal.fire({
+					type: 'error',
+					title: 'Error',
+					text: mensaje[1],
+					footer: 'Verifique la información de Registro, en especial que la información no fué ingresada previamente a la Base de Datos.'
+				});
+			}
+	    }
+
+	});
+	limpiarCategoria();
+}
+
+
+
 
 function listar(){
     tabla=$('#data-table').DataTable(

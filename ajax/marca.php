@@ -35,22 +35,22 @@ switch ($_GET["op"]){
 	case '1':
 		if (empty($id_marca)){
 			$rspta=$marca->insertar($nombre_marca, $descripcion_marca);
-			echo $rspta ? "1:La acción para la Hoja de Ruta fué registrada" : "0:a acción para la Hoja de Ruta no fué registrada";
+			echo $rspta ? "1:Marca registrada" : "0:La marca ya se encuentra registrada";
 		}
 		else {
-			$rspta=$marca->editar($id_marca,$nombre_marca);
-			echo $rspta ? "1:a acción para la Hoja de Ruta fué actualizada" : "0:a acción para la Hoja de Ruta no fué actualizada";
+			$rspta=$marca->editar($id_marca,$nombre_marca, $descripcion_marca);
+			echo $rspta ? "1:Marca actualizada" : "0:No se registraron cambios";
 		}
 	break;
 
 	case '2':
 		$rspta=$marca->desactivar($id_marca);
- 		echo $rspta ? "1:a acción para la Hoja de Ruta fué Desactivada" : "0:a acción para la Hoja de Ruta no fué Desactivada";
+ 		echo $rspta ? "1:La marca fue desactivada" : "0:a acción para la Hoja de Ruta no fué Desactivada";
 	break;
 
 	case '3':
 		$rspta=$marca->activar($id_marca);
- 		echo $rspta ? "1:a acción para la Hoja de Ruta fué Activada" : "0:a acción para la Hoja de Ruta no fué Activada";
+ 		echo $rspta ? "1:La marca fue activada" : "0:a acción para la Hoja de Ruta no fué Activada";
 	break;
 
 	case '4':
@@ -61,10 +61,14 @@ switch ($_GET["op"]){
 
 	case '5':
 		$rspta = $marca->select();
+		
 		while ($reg = mysqli_fetch_assoc($rspta))
 		{
 			echo '<option value=' . $reg['id_marca'] . '>' . $reg['nombre_marca'] . '</option>';
 		}
+		echo '<option value="crear">CREAR MARCA</option>';
+		
 	break;
+
 }
 ?>

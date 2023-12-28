@@ -18,6 +18,8 @@ function limpiar()
 {
 	$("#nombre_marca").val("");
 	$("#id_marca").val("");
+	$("#descripcion_marca").val("");
+	
 }
 
 //Función mostrar formulario
@@ -80,7 +82,7 @@ function guardaryeditar(e)
 	    processData: false,
 
 	    success: function(datos)
-	    {    
+	    {   console.log(datos);
 			mensaje=datos.split(":");
 			if(mensaje[0]=="1"){               
 			swal.fire(
