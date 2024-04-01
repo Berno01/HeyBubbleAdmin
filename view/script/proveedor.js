@@ -93,6 +93,7 @@ function guardaryeditar(e)
 
 	    success: function(datos)
 	    {    
+			console.log(datos);
 			mensaje=datos.split(":");
 			if(mensaje[0]=="1"){               
 			swal.fire(

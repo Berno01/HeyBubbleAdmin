@@ -78,7 +78,7 @@ function crearCategoria() {
 	var select = document.getElementById("categoria");
     var opcionSeleccionada = select.options[select.selectedIndex].value;
 
-	if (opcionSeleccionada === "crear") {
+	if (opcionSeleccionada === "crearC") {
 		mostrarformCategoria(true);
 	}
 }
@@ -119,14 +119,6 @@ function mostrarformMarca(flag)
 	}
 }
 
-function cancelarformMarca()
-{
-	swal.fire(
-		'Mensaje de Confirmación',
-		'success'
-		);           
-	  mostrarformMarca(false);
-}
 
 function guardarMarca(e)
 {
@@ -186,11 +178,7 @@ function mostrarformCategoria(flag)
 	}
 }
 
-function cancelarformMarca()
-{
-	limpiarCategoria();
-	mostrarformCategoria(false);
-}
+
 
 function guardarCategoria(e)
 {

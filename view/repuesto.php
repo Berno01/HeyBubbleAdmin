@@ -43,7 +43,7 @@ include("header.php");
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroup-sizing-default">Categoria: </span>
                                         </div>
-                                        <select onchange="crearMarca()" id="categoria" name="categoria" class="form-control" data-live-search="true" required>
+                                        <select onchange="crearCategoria()" id="categoria" name="categoria" class="form-control" data-live-search="true" required>
                                         </select>
                                     </div>
 
@@ -114,10 +114,8 @@ include("header.php");
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitleMarca">marca</h5>
-                                <button type="button" onclick="cancelarformMarca()" class="close" data-dismiss="modal">
-                                    <i class="anticon anticon-close"></i>
-                                </button>
+                                <h5 class="modal-title" id="exampleModalCenterTitleMarca">Marca</h5>
+                                
                             </div>
                             <div class="modal-body">
                                 <p>Asegurate de escribir bien el nombre de la marca.</p>
@@ -144,7 +142,6 @@ include("header.php");
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelarformMarca()">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" id="btnGuardarMarca">Guardar</button>
                                 </form>
                             </div>
@@ -160,9 +157,7 @@ include("header.php");
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalCenterTitle">Categoria</h5>
-                                <button type="button" onclick="cancelarformCategoria()" class="close" data-dismiss="modal">
-                                    <i class="anticon anticon-close"></i>
-                                </button>
+                                
                             </div>
                             <div class="modal-body">
                                 <p>Asegurate de escribir bien el nombre de la categoría.</p>
@@ -180,7 +175,6 @@ include("header.php");
                                     </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelarformCategoria()">Cerrar</button>
                                 <button type="submit" class="btn btn-primary" id="btnGuardarCategoria">Guardar</button>
                                 </form>
                             </div>
