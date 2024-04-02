@@ -196,30 +196,45 @@
                                 <span class="icon-holder">
                                     <i class="anticon anticon-appstore"></i>
                                 </span>
-                                <span class="title">Repuestos</span>
+                                <span class="title">Buba</span>
                                 <span class="arrow">
                                     <i class="arrow-icon"></i>
                                 </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="repuesto.php">Ver repuestos</a>
+                                    <a href="repuesto.php">Sabores</a>
                                 </li>
                                 <li>
-                                    <a href="categoria.php">Ver categorias</a>
+                                    <a href="tamanio.php">Tamaño</a>
                                 </li>
                                 <li>
-                                    <a href="marca.php">Ver marcas</a>
+                                    <a href="buba.php">Bubas</a>
                                 </li>
                                 
                             </ul>
                         </li>
+                        
+                       
+
+
+                        <li class="nav-item">
+                            <a class="dropdown-toggle" href="proveedor.php">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-hdd"></i>
+                                </span>
+                                <span href="proveedor.php" class="title">Ventas</span>
+                                
+                            </a>
+                            
+                        </li>
+                        
                         <li class="nav-item dropdown">
                             <a class="dropdown-toggle" href="javascript:void(0);">
                                 <span class="icon-holder">
 									<i class="anticon anticon-build"></i>
 								</span>
-                                <span class="title">Ventas</span>
+                                <span class="title">Inventario</span>
                                 <span class="arrow">
 									<i class="arrow-icon"></i>
 								</span>
@@ -232,37 +247,6 @@
                                 
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle" href="javascript:void(0);">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-hdd"></i>
-                                </span>
-                                <span class="title">Lotes</span>
-                                <span class="arrow">
-                                    <i class="arrow-icon"></i>
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                
-                                <li>
-                                    <a href="tabs.html">Proximamente</a>
-                                </li>
-                            
-                            </ul>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="dropdown-toggle" href="proveedor.php">
-                                <span class="icon-holder">
-                                    <i class="anticon anticon-hdd"></i>
-                                </span>
-                                <span href="proveedor.php" class="title">Proveedores</span>
-                                
-                            </a>
-                            
-                        </li>
-                        
                         
                         
                         
