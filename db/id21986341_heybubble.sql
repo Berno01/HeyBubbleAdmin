@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2024 a las 00:26:47
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Servidor: localhost
+-- Tiempo de generación: 02-04-2024 a las 23:17:51
+-- Versión del servidor: 10.5.20-MariaDB
+-- Versión de PHP: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `heybubble`
+-- Base de datos: `id21986341_heybubble`
 --
 
 -- --------------------------------------------------------
@@ -45,7 +45,7 @@ CREATE TABLE `detalle_venta` (
   `id_producto` int(11) NOT NULL,
   `precio_venta` double NOT NULL,
   `id_buba` int(11) NOT NULL,
-  `id_tamaño` int(11) NOT NULL,
+  `id_tamanio` int(11) NOT NULL,
   `id_pago` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -76,14 +76,21 @@ CREATE TABLE `producto` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tamaño`
+-- Estructura de tabla para la tabla `tamanio`
 --
 
-CREATE TABLE `tamaño` (
-  `id_tamaño` int(11) NOT NULL,
-  `precio_tamaño` double NOT NULL,
-  `estado_tamaño` tinyint(1) NOT NULL
+CREATE TABLE `tamanio` (
+  `id_tamanio` int(11) NOT NULL,
+  `precio_tamanio` double NOT NULL,
+  `estado_tamanio` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tamanio`
+--
+
+INSERT INTO `tamanio` (`id_tamanio`, `precio_tamanio`, `estado_tamanio`) VALUES
+(1, 14, 1);
 
 -- --------------------------------------------------------
 
@@ -117,7 +124,7 @@ ALTER TABLE `detalle_venta`
   ADD KEY `id_pago` (`id_pago`),
   ADD KEY `id_producto` (`id_producto`),
   ADD KEY `id_buba` (`id_buba`),
-  ADD KEY `id_tamaño` (`id_tamaño`),
+  ADD KEY `id_tamaño` (`id_tamanio`),
   ADD KEY `id_venta` (`id_venta`);
 
 --
@@ -133,10 +140,10 @@ ALTER TABLE `producto`
   ADD PRIMARY KEY (`id_producto`);
 
 --
--- Indices de la tabla `tamaño`
+-- Indices de la tabla `tamanio`
 --
-ALTER TABLE `tamaño`
-  ADD PRIMARY KEY (`id_tamaño`);
+ALTER TABLE `tamanio`
+  ADD PRIMARY KEY (`id_tamanio`);
 
 --
 -- Indices de la tabla `venta`
@@ -174,10 +181,10 @@ ALTER TABLE `producto`
   MODIFY `id_producto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `tamaño`
+-- AUTO_INCREMENT de la tabla `tamanio`
 --
-ALTER TABLE `tamaño`
-  MODIFY `id_tamaño` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tamanio`
+  MODIFY `id_tamanio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `venta`
@@ -196,7 +203,7 @@ ALTER TABLE `detalle_venta`
   ADD CONSTRAINT `detalle_venta_ibfk_1` FOREIGN KEY (`id_pago`) REFERENCES `pago` (`id_pago`) ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_buba`) REFERENCES `buba` (`id_buba`) ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_venta_ibfk_3` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id_producto`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_venta_ibfk_4` FOREIGN KEY (`id_tamaño`) REFERENCES `tamaño` (`id_tamaño`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_venta_ibfk_4` FOREIGN KEY (`id_tamanio`) REFERENCES `tamanio` (`id_tamanio`) ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_venta_ibfk_5` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON UPDATE CASCADE;
 COMMIT;
 
