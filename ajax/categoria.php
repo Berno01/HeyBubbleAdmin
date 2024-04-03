@@ -14,7 +14,7 @@ switch ($_GET["op"]){
 
  		while ($reg = mysqli_fetch_assoc($rspta)){			
 			$data[]=array(
-				"1"=>($reg['estado_categoria']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_categoria'].')"><i class="anticon anticon-edit"></i></button>'.
+				"1"=>($reg['estado_categoria']=='1')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_categoria'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_categoria'].')"><i class="anticon anticon-delete"></i></button>':
 					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_categoria'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_categoria'].')"><i class="anticon anticon-delete"></i></button>',

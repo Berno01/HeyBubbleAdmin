@@ -44,14 +44,14 @@ Class Tamanio
 	//Implementamos un método para desactivar categorías
 	public function desactivar($id_tamanio)
 	{
-		$sql="UPDATE tamanio SET estado_tamanio=1 WHERE id_tamanio='$id_tamanio'";
+		$sql="UPDATE tamanio SET estado_tamanio=0 WHERE id_tamanio='$id_tamanio'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar categorías
 	public function activar($id_tamanio)
 	{
-		$sql="UPDATE tamanio SET estado_tamanio=0 WHERE id_tamanio='$id_tamanio'";
+		$sql="UPDATE tamanio SET estado_tamanio=1 WHERE id_tamanio='$id_tamanio'";
 		return ejecutarConsulta($sql);
 	}
 

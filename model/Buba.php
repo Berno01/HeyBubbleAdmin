@@ -44,14 +44,14 @@ Class buba
 	//Implementamos un método para desactivar categorías
 	public function desactivar($id_buba)
 	{
-		$sql="UPDATE buba SET estado_buba=1 WHERE id_buba='$id_buba'";
+		$sql="UPDATE buba SET estado_buba=0 WHERE id_buba='$id_buba'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar categorías
 	public function activar($id_buba)
 	{
-		$sql="UPDATE buba SET estado_buba=0 WHERE id_buba='$id_buba'";
+		$sql="UPDATE buba SET estado_buba=1 WHERE id_buba='$id_buba'";
 		return ejecutarConsulta($sql);
 	}
 

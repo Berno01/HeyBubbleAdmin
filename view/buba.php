@@ -17,25 +17,7 @@ include("header.php");
                 <div class="modal fade" id="exampleModalCenter">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle"><ul class="list-group">
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Cras justo odio
-                                    <span class="badge bg-primary rounded-pill">14</span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Dapibus ac facilisis in
-                                    <span class="badge bg-primary rounded-pill">2</span>
-                                  </li>
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Morbi leo risus
-                                    <span class="badge bg-primary rounded-pill">1</span>
-                                  </li>
-                                </ul></h5>
-                                <button type="button" onclick="cancelarform()" class="close" data-dismiss="modal">
-                                    <i class="anticon anticon-close"></i>
-                                </button>
-                            </div>
+                            
                             <div class="modal-body">
                                 <p>Asegurate de escribir bien el sabor de las bubas.</p>
                                 <br>  

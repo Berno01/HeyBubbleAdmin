@@ -44,14 +44,14 @@ Class Categoria
 	//Implementamos un método para desactivar categorías
 	public function desactivar($id_categoria)
 	{
-		$sql="UPDATE categoria SET estado_categoria=1 WHERE id_categoria='$id_categoria'";
+		$sql="UPDATE categoria SET estado_categoria=0 WHERE id_categoria='$id_categoria'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar categorías
 	public function activar($id_categoria)
 	{
-		$sql="UPDATE categoria SET estado_categoria=0 WHERE id_categoria='$id_categoria'";
+		$sql="UPDATE categoria SET estado_categoria=1 WHERE id_categoria='$id_categoria'";
 		return ejecutarConsulta($sql);
 	}
 

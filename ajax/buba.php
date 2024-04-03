@@ -1,7 +1,7 @@
 <?php 
-require_once "../model/buba.php";
+require_once "../model/Buba.php";
 
-$buba=new buba();
+$buba=new Buba();
 
 $id_buba=isset($_POST["id_buba"])? $_POST["id_buba"]:"";
 $nombre_buba=isset($_POST["nombre_buba"])? mb_strtoupper($_POST["nombre_buba"]):"";
@@ -14,7 +14,7 @@ switch ($_GET["op"]){
 
  		while ($reg = mysqli_fetch_assoc($rspta)){			
 			$data[]=array(
-				"1"=>($reg['estado_buba']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_buba'].')"><i class="anticon anticon-edit"></i></button>'.
+				"1"=>($reg['estado_buba']=='1')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_buba'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_buba'].')"><i class="anticon anticon-delete"></i></button>':
 					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_buba'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_buba'].')"><i class="anticon anticon-delete"></i></button>',
@@ -34,7 +34,7 @@ switch ($_GET["op"]){
 	case '1':
 		if (empty($id_buba)){
 			$rspta=$buba->insertar($nombre_buba);
-			echo $rspta ? "1:La buba fue registrada" : "0:buba ya registrada";
+			echo $rspta ? "1:La buba fue registrada" : "0:Buba ya registrada";
 		}
 		else {
 			$rspta=$buba->editar($id_buba,$nombre_buba);

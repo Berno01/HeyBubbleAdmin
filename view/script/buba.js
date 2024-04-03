@@ -4,7 +4,7 @@ function init(){
     //Para validación
 	
 
-	$('#nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
+	$('#nombre_buba').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789/-*,.°()$#');
 	mostrarform(false);
     listar();
     $("#formulario").on("submit",function(e)
@@ -71,29 +71,32 @@ function guardaryeditar(e)
 	e.preventDefault(); //No se activará la acción predeterminada del evento
 	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
-
+	console.log(formData);
 	$.ajax({
 		url: "../ajax/buba.php?op=1",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
 	    processData: false,
-
+		
 	    success: function(datos)
-	    {    
+	    {   console.log(datos);
 			mensaje=datos.split(":");
 			if(mensaje[0]=="1"){               
 			swal.fire(
 				'Mensaje de Confirmación',
 				mensaje[1],
 				'success'
-
+				
 				);           
 	          mostrarform(false);
 	          tabla.ajax.reload();
+			  
 			}
 			else{
+				
 				Swal.fire({
+					
 					type: 'error',
 					title: 'Error',
 					text: mensaje[1],

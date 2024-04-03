@@ -14,7 +14,7 @@ switch ($_GET["op"]){
 
  		while ($reg = mysqli_fetch_assoc($rspta)){			
 			$data[]=array(
-				"1"=>($reg['estado_sabor']=='0')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_sabor'].')"><i class="anticon anticon-edit"></i></button>'.
+				"1"=>($reg['estado_sabor']=='1')?'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_sabor'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-danger btn-rounded btn-tone btn-sm " onclick="desactivar('.$reg['id_sabor'].')"><i class="anticon anticon-delete"></i></button>':
 					'<button class="btn btn-icon btn-hover btn-sm btn-rounded pull-right" onclick="mostrar('.$reg['id_sabor'].')"><i class="anticon anticon-edit"></i></button>'.
 					'<button class="btn btn-icon btn-success btn-rounded btn-tone btn-sm pull-right" onclick="activar('.$reg['id_sabor'].')"><i class="anticon anticon-delete"></i></button>',
@@ -64,7 +64,7 @@ switch ($_GET["op"]){
 		{
 			echo '<option value=' . $reg['id_sabor'] . '>' . $reg['nombre_sabor'] . '</option>';
 		}
-			echo '<option value="crearC">AGREGAR sabor</option>'; 
+			echo '<option value="crearC">AGREGAR Sabor</option>'; 
 	break;
 }
 ?>

@@ -43,68 +43,15 @@ include("header.php");
                                     <div class="card-body" id="formularioregistros">
                                         <form name="formulario" id="formulario" method="POST">
                                             <h4 class="card-title">Registro de Datos</h4>  
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div>
-                                                        <div class="mb-3">
-                                                            <label for="example-text-input" class="form-label">Proveedor</label>
-                                                            <input type="hidden" name="idingreso" id="idingreso">
-                                                            <select id="proveedor" name="proveedor" class="form-control" data-live-search="true" required>
-                                                            </select>
-                                                        </div>                                                  
-                                                    </div>
+                                            <div class="form-group row">
+                                                <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente:</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="cliente_venta" name="cliente_venta" placeholder="Nombre del cliente">
                                                 </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <div class="mb-3">
-                                                            <label for="example-date-input" class="form-label">Fecha</label>
-                                                            <input type="date" class="form-control" name="fecha_hora" id="fecha_hora" value="<?php date_default_timezone_set('America/La_Paz'); $fcha = date("Y-m-d"); echo $fcha;?>" required>
-                                                        </div>                                                        
-                                                    </div>
-                                                </div>
-                                            </div>  
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div>
-                                                        <div class="mb-3">
-                                                            <label for="example-text-input" class="form-label">Tipo Comprobante</label>
-                                                            <select name="tipo_comprobante" id="tipo_comprobante" class="form-control selectpicker" required="">
-                                                                <option value="1">Boleta</option>
-                                                                <option value="2">Factura</option>
-                                                                <option value="3">Ticket</option>
-                                                            </select>
-                                                        </div>                                                  
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-2">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <div class="mb-3">
-                                                            <label for="example-date-input" class="form-label">Serie</label>
-                                                            <input type="number" class="form-control" name="serie_comprobante" id="serie_comprobante" maxlength="7" placeholder="Serie" min="0" value="0">
-                                                        </div>                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <div class="mb-3">
-                                                            <label for="example-date-input" class="form-label">Número</label>
-                                                            <input type="number" class="form-control" name="num_comprobante" id="num_comprobante" maxlength="10" placeholder="Número" value="0" min="0" required>
-                                                        </div>                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mt-3 mt-lg-0">
-                                                        <div class="mb-3">
-                                                            <label for="example-date-input" class="form-label">Impuesto</label>
-                                                            <input type="number" class="form-control" name="impuesto" id="impuesto" placeholder="Impuesto" value="0" min="0" required>
-                                                        </div>                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </div> 
+                                            
                                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">     
-                                                <button id="btnAgregarArt" type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><span class="fa fa-plus"></span> Agregar Artículos</button>
+                                                <button id="btnAgregarArt" type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><span class="fa fa-plus"></span>Agregar Buba</button>
                                             </div>
 
                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">

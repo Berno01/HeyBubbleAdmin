@@ -44,14 +44,14 @@ Class Sabor
 	//Implementamos un método para desactivar categorías
 	public function desactivar($id_sabor)
 	{
-		$sql="UPDATE sabor SET estado_sabor=1 WHERE id_sabor='$id_sabor'";
+		$sql="UPDATE sabor SET estado_sabor=0 WHERE id_sabor='$id_sabor'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar categorías
 	public function activar($id_sabor)
 	{
-		$sql="UPDATE sabor SET estado_sabor=0 WHERE id_sabor='$id_sabor'";
+		$sql="UPDATE sabor SET estado_sabor=1 WHERE id_sabor='$id_sabor'";
 		return ejecutarConsulta($sql);
 	}
 

@@ -44,14 +44,14 @@ Class marca
 	//Implementamos un método para desactivar categorías
 	public function desactivar($id_marca)
 	{
-		$sql="UPDATE marca SET estado_marca=1 WHERE id_marca='$id_marca'";
+		$sql="UPDATE marca SET estado_marca=0 WHERE id_marca='$id_marca'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para activar categorías
 	public function activar($id_marca)
 	{
-		$sql="UPDATE marca SET estado_marca=0 WHERE id_marca='$id_marca'";
+		$sql="UPDATE marca SET estado_marca=1 WHERE id_marca='$id_marca'";
 		return ejecutarConsulta($sql);
 	}
 

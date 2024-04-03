@@ -1,18 +1,19 @@
 var tabla;
 
 function init(){
-    $('#proveedor').select2();
-    $('#tipo_comprobante').select2();
+    $('#sabor').select2();
+    $('#buba').select2();
+    $('#tamaño').select2();
 	mostrarform(false);
     listar();
     $("#formulario").on("submit",function(e)
 	{
         guardaryeditar(e);	
 	});
-    $.post("../ajax/proveedor.php?op=5", function(r){
+    $.post("../ajax/sabor.php?op=5", function(r){
         console.log(r);
-	    $("#proveedor").html(r);
-		$('#proveedor').trigger('change.select2');
+	    $("#sabor").html(r);
+		$('#sabor').trigger('change.select2');
 	});
 }
 
@@ -96,7 +97,7 @@ function listar(){
                     ],
             "ajax":
                     {
-                        url: '../ajax/ingreso.php?op=0',
+                        url: '../ajax/venta.php?op=0',
                         type : "get",
                         dataType : "json",						
                         error: function(e){
