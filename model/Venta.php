@@ -11,18 +11,22 @@ Class Venta
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($cliente_venta,$total_venta,$id_articulo,$cantidad,$precio_compra,$precio_venta)
+	public function insertar($cliente_venta,$total_venta,$id_buba,$id_tamanio,$id_sabor,$cant_venta,$precio_venta)
 	{
-		$sql="INSERT INTO VENTA (cliente_venta, total_venta, fecha_venta) VALUES('$cliente_venta', $total_venta, now()) RETURNING id_venta";
-		$id_ventanew=ejecutarConsulta_retornarID($sql);
+		$sql="INSERT INTO VENTA (cliente_venta, total_venta, fecha_venta) VALUES('$cliente_venta', $total_venta, now()) 
+		RETURNING id_venta";
+		$id_venta_new=ejecutarConsulta_retornarID($sql);
 
 		$num_elementos=0;
 		$sw=true;
 
-		while ($num_elementos < count($id_articulo))
+		while ($num_elementos < count($id_tamanio))
 		{
-			$sql_detalle = "INSERT INTO detalle_venta(id_venta, id_buba,detalle_venta_cantidad,detalle_venta_precio_compra,detalle_venta_precio_venta) 
-            VALUES ('$idventanew', '$idarticulo[$num_elementos]','$cantidad[$num_elementos]','$precio_compra[$num_elementos]','$precio_venta[$num_elementos]')";
+			$sql_detalle = "INSERT INTO detalle_venta
+			(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta) 
+            VALUES 
+			('$id_venta_new', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
+			,'$cant_venta[$num_elementos]','$precio_venta[$num_elementos]')";
 			ejecutarConsulta($sql_detalle) or $sw = false;
 			$num_elementos=$num_elementos + 1;
 		}

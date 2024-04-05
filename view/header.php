@@ -203,7 +203,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="repuesto.php">Sabores</a>
+                                    <a href="sabor.php">Sabores</a>
                                 </li>
                                 <li>
                                     <a href="tamanio.php">Tamaño</a>
@@ -214,19 +214,13 @@
                                 
                             </ul>
                         </li>
-                        
-                       
-
-
                         <li class="nav-item">
-                            <a class="dropdown-toggle" href="proveedor.php">
+                            <a class="dropdown-toggle" href="venta.php">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-hdd"></i>
                                 </span>
-                                <span href="proveedor.php" class="title">Ventas</span>
-                                
+                                <span href="venta.php" class="title">Ventas</span>
                             </a>
-                            
                         </li>
                         
                         <li class="nav-item dropdown">

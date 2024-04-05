@@ -20,21 +20,23 @@ switch ($_GET["op"]){
  		//Vamos a declarar un array
  		$data= Array();
 
- 		while ($reg = pg_fetch_assoc($rspta)){	
-            $date = date_create($reg['fecha']);
+ 		while ($reg = mysqli_fetch_assoc($rspta)){	
+            $date = date_create($reg['fecha_venta']);
 			$date = date_format($date,"d/m/Y");	
 			$data[]=array(
-				"0"=>($reg['ingresocondicion'])?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>'.
-					'<button class="btn btn-danger" onclick="anular('.$reg['id_venta'].')"><i class="bx bx-trash"></i></button>':
+				"0"=>($reg['estado_venta']=='1')?'<span class="badge bg-primary">Pendiente</span>':
+					(($reg['estado_venta']=='0')?'<span class="badge bg-danger">Anulado</span>':
+					'<span class="badge bg-primary">Entregado</span>'),
+					
+                "1"=>$reg['cliente_venta'],
+                "2"=>$reg['cant_vasos'],
+				"3"=>$date,
+                "4"=>$reg['total_venta'],
+				"7"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>'.
+					'<button class="btn btn-danger" onclick="entregar('.$reg['id_venta'].')"><i class="bx"></i></button>'.
+					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="bx bx-trash"></i></button>' :
 					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>',
-                "1"=>$date,
-                "2"=>$reg['proveedornombre']." ".$reg['proveedorap']." ".$reg['proveedoram'],
-                "3"=>$reg['usuarionombre']." ".$reg['usuarioap']." ".$reg['usuarioam'],
-                "4"=>$reg['ingresotipo_comprobante'],
-                "5"=>$reg['ingresoserie_comprobante'].'-'.$reg['ingresonumero_comprobante'],
-                "6"=>$reg['ingresototal_compra'],
-                "7"=>($reg['ingresocondicion']=='1')?'<span class="badge bg-primary">Aceptado</span>':
-                    '<span class="badge bg-danger">Anulado</span>'
+				"8"=>$reg['id_venta']
 				);
 		}
  		$results = array(
@@ -47,7 +49,8 @@ switch ($_GET["op"]){
 	break;
 	case '1':
 		if (empty($id_venta)){
-			$rspta=$ingreso->insertar($proveedor,$idusuario,$tipo_comprobante,$serie_comprobante,$num_comprobante,$fecha_hora,$impuesto,$total_compra,$_POST["idarticulo"],$_POST["cantidad"],$_POST["precio_compra"],$_POST["precio_venta"]);
+			$rspta=$ingreso->insertar($cliente_venta, $total_venta,
+			$_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["cant_venta"],$_POST["precio_venta"]);
 			echo $rspta ? "1:Ingreso registrado" : "0:No se pudieron registrar todos los datos del ingreso";
 		}
 	break;
