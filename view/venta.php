@@ -22,16 +22,15 @@ include("header.php");
                                 <div class="card">
                                 <div class="card-body" id="listadoregistros">
                                     <h4 class="card-title">Listado de Registros</h4>
-                                    <table id="tbllistado" class="table table-striped" style="width:100%">
+                                    <table id="tbllistado" class="table table-hover e-commerce-table" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Opciones</th>
-                                                
+                                                <th>Estado</th>
                                                 <th>Cliente</th>
                                                 <th>Vasos</th>
                                                 <th>Fecha</th>
                                                 <th>Total Compra</th>
-                                                <th>Estado</th>
+                                                <th>Opciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -51,21 +50,27 @@ include("header.php");
                                             </div> 
                                             
                                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">     
-                                                <button id="btnAgregarArt" type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"><span class="fa fa-plus"></span>Agregar Buba</button>
+                                                <button id="btnAgregarBuba" type="button" class="btn btn-primary waves-effect waves-light" onclick="agregarBubaB()"><span class="fa fa-plus"></span>Agregar Buba</button>
                                             </div>
 
                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                                <table id="detalles" class="table table-striped table-bordered table-condensed table-hover">
+                                                <table id="detalles" class="table table-hover e-commerce-table">
                                                 <thead style="background-color:#A9D0F5">
                                                         <th>Opciones</th>
-                                                        <th>Artículo</th>
                                                         <th>Cantidad</th>
-                                                        <th>Precio Compra</th>
-                                                        <th>Precio Venta</th>
+                                                        <th>Sabor</th>
+                                                        <th>Buba</th>
+                                                        <th>Tamaño</th>
+                                                        <th>Pago</th>
+                                                        <th>Precio</th>
                                                         <th>Subtotal</th>
+                                                        <th>Actualizar</th>
                                                     </thead>
                                                     <tfoot>
                                                         <th>TOTAL</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>

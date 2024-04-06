@@ -20,30 +20,23 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#serie_comprobante").val("0");
-	$("#num_comprobante").val("0");
 	$("#impuesto").val("0");
 
 	$("#total_compra").val("");
 	$(".filas").remove();
 	$("#total").html("0");
 	
-	//Obtenemos la fecha actual
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-    $('#fecha_hora').val(today);
-
     //Marcamos el primer tipo_documento
     $("#tipo_comprobante").val("1");
 	$('#tipo_comprobante').trigger('change.select2');
 
+    /*
     $.post("../ajax/proveedor.php?op=5", function(r){
         console.log(r);
 	    $("#proveedor").html(r);
 		$('#proveedor').trigger('change.select2');
 	});
+    */
 
 }
 
@@ -57,12 +50,12 @@ function mostrarform(flag)
 		$("#formularioregistros").show();
 		//$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
-		listarArticulos();
+		
 
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		detalles=0;
-		$("#btnAgregarArt").show();
+		$("#btnAgregarBuba").show();
 	}
 	else
 	{
@@ -110,38 +103,7 @@ function listar(){
         });
 }
 
-//Función ListarArticulos
-function listarArticulos()
-{
-	tabla=$('#tblarticulos').DataTable(
-	{
-		"lengthMenu": [ 10, 25, 50, 75, 100 ],//mostramos el menú de registros a revisar
-        "Processing": true,//Activamos el procesamiento del datatables
-        "ServerSide": true,//Paginación y filtrado realizados por el servidor
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-        },
-        dom: 'Bfrtip',//Definimos los elementos del control de tabla
-        buttons: [		          
-                    'copyHtml5',
-                    'excelHtml5',
-                    'csvHtml5',
-                    'pdf'
-                ],
-        "ajax":
-                {
-                    url: '../ajax/articulo.php?op=6',
-                    type : "get",
-                    dataType : "json",						
-                    error: function(e){
-                        console.log(e.responseText);	
-                    }
-                },
-        "Destroy": true,
-        "iDisplayLength": 10,//Paginación
-        "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
-    });
-}
+
 
 //Función para guardar o editar
 
@@ -211,7 +173,7 @@ function mostrar(idingreso)
 		//Ocultar y mostrar los botones
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
-		$("#btnAgregarArt").hide();
+		$("#btnAgregarBuba").hide();
 
  	});
 
@@ -279,20 +241,22 @@ function marcarImpuesto()
     }
   }
 
-function agregarDetalle(idarticulo,articulo)
+function agregarBubaB()
 {
     var cantidad=1;
     var precio_compra=1;
     var precio_venta=1;
 
-    if (idarticulo!="")
-    {
+    
         var subtotal=cantidad*precio_compra;
         var fila='<tr class="filas" id="fila'+cont+'">'+
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-        '<td><input type="hidden" name="idarticulo[]" value="'+idarticulo+'">'+articulo+'</td>'+
         '<td><input type="number" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-        '<td><input type="number" class="form-control"name="precio_compra[]" id="precio_compra[]" value="'+precio_compra+'"></td>'+
+        '<td><select class="select2" name="id_sabor[]" multiple="multiple"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+
+        '<td><select class="select2" name="tipo_pago[]"><option value="AP">Efectivo</option><option value="NL">QR</option></select> </td>'+
         '<td><input type="number" class="form-control"name="precio_venta[]" value="'+precio_venta+'"></td>'+
         '<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
         '<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="mdi mdi-refresh"></i></button></td>'+
@@ -301,12 +265,9 @@ function agregarDetalle(idarticulo,articulo)
         detalles=detalles+1;
         $('#detalles').append(fila);
         modificarSubototales();
-    }
-    else
-    {
-        alert("Error al ingresar el detalle, revisar los datos del artículo");
-    }
+    
 }
+
 
 function modificarSubototales()
 {

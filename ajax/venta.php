@@ -6,7 +6,6 @@ $venta=new Venta();
 
 $id_venta=isset($_POST["id_venta"])? $_POST["id_venta"]:"";
 $proveedor=isset($_POST["proveedor"])? $_POST["proveedor"]:"";
-$idusuario=$_SESSION["idusuario"];
 $tipo_comprobante=isset($_POST["tipo_comprobante"])? $_POST["tipo_comprobante"]:"";
 $serie_comprobante=isset($_POST["serie_comprobante"])? $_POST["serie_comprobante"]:"";
 $num_comprobante=isset($_POST["num_comprobante"])? $_POST["num_comprobante"]:"";
@@ -16,7 +15,7 @@ $total_compra=isset($_POST["total_compra"])? $_POST["total_compra"]:"";
 
 switch ($_GET["op"]){
 	case '0':
-		$rspta=$ingreso->listar();
+		$rspta=$venta->listar();
  		//Vamos a declarar un array
  		$data= Array();
 
@@ -32,11 +31,11 @@ switch ($_GET["op"]){
                 "2"=>$reg['cant_vasos'],
 				"3"=>$date,
                 "4"=>$reg['total_venta'],
-				"7"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>'.
+				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>'.
 					'<button class="btn btn-danger" onclick="entregar('.$reg['id_venta'].')"><i class="bx"></i></button>'.
 					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="bx bx-trash"></i></button>' :
 					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>',
-				"8"=>$reg['id_venta']
+				"6"=>$reg['id_venta']
 				);
 		}
  		$results = array(

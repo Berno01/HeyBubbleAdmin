@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2024 a las 18:22:55
+-- Tiempo de generación: 06-04-2024 a las 18:46:30
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -57,6 +57,15 @@ CREATE TABLE `detalle_venta` (
   `id_tamanio` int(11) NOT NULL,
   `tipo_pago` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `detalle_venta`
+--
+
+INSERT INTO `detalle_venta` (`id_venta`, `id_detalle_venta`, `cant_venta`, `id_sabor`, `precio_venta`, `id_buba`, `id_tamanio`, `tipo_pago`) VALUES
+(1, 2, 2, 1, 32, 1, 1, 0),
+(1, 3, 2, 1, 32, 2, 2, 2),
+(2, 4, 1, 2, 14, 1, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +139,8 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id_venta`, `cliente_venta`, `total_venta`, `fecha_venta`, `estado_venta`) VALUES
-(1, 'Berno', 16, '2024-04-03 11:09:37', 1);
+(1, 'Berno', 16, '2024-04-03 11:09:37', 1),
+(2, 'Juanito', 0, '2024-04-06 10:07:18', 1);
 
 --
 -- Índices para tablas volcadas
@@ -192,7 +202,7 @@ ALTER TABLE `buba`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
@@ -216,7 +226,7 @@ ALTER TABLE `tamanio`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas

@@ -59,7 +59,7 @@ Class Venta
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT i.idventa,DATE(i.ventafecha_hora) as fecha, i.idproveedor,p.personanombre as proveedornombre, p.personaap as proveedorap, p.personaam as proveedoram,u.idusuario,pr.personanombre as usuarionombre, pr.personaap as usuarioap, pr.personaam as usuarioam,i.ventatipo_comprobante,i.ventaserie_comprobante,i.ventanumero_comprobante,i.ventatotal_compra,i.ventaimpuesto,i.ventacondicion FROM venta i, persona p, proveedor r, persona pr, usuario u WHERE i.idproveedor=r.idproveedor AND r.idpersona=p.idpersona AND u.idusuario=i.idusuario AND u.idpersona=pr.idpersona ORDER BY i.idventa desc";
+		$sql="SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, sum(d.cant_venta) as cant_vasos, v.estado_venta from venta v join detalle_venta d on v.id_venta=d.id_venta group by id_venta";
 		return ejecutarConsulta($sql);		
 	}
 	
