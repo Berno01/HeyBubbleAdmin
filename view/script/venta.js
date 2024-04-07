@@ -1,6 +1,7 @@
 var tabla;
 
 function init(){
+	$('.select2').select2();
     $('#sabor').select2();
     $('#buba').select2();
     $('#tamaño').select2();
@@ -244,20 +245,18 @@ function marcarImpuesto()
 function agregarBubaB()
 {
     var cantidad=1;
-    var precio_compra=1;
     var precio_venta=1;
 
     
-        var subtotal=cantidad*precio_compra;
+        var subtotal=cantidad*precio_venta;
         var fila='<tr class="filas" id="fila'+cont+'">'+
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
         '<td><input type="number" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-        '<td><select class="select2" name="id_sabor[]" multiple="multiple"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2" name="id_sabor[]" ><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
         '<td><select class="select2" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
         '<td><select class="select2" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-
         '<td><select class="select2" name="tipo_pago[]"><option value="AP">Efectivo</option><option value="NL">QR</option></select> </td>'+
-        '<td><input type="number" class="form-control"name="precio_venta[]" value="'+precio_venta+'"></td>'+
+        '<td><input type="number" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
         '<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
         '<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="mdi mdi-refresh"></i></button></td>'+
         '</tr>';
@@ -272,7 +271,7 @@ function agregarBubaB()
 function modificarSubototales()
 {
     var cant = document.getElementsByName("cantidad[]");
-    var prec = document.getElementsByName("precio_compra[]");
+    var prec = document.getElementsByName("precio_venta[]");
     var sub = document.getElementsByName("subtotal");
 
     for (var i = 0; i <cant.length; i++) {

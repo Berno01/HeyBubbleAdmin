@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Enlink - Admin Dashboard Template</title>
+    <link href="../public/vendors/select2/select2.css" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="../public/images/logo/favicon.png">
@@ -17,9 +18,6 @@
 
     <!-- Sweet Alert-->
     <link href="../public/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-
-    <link href="../public/vendors/select2/select2.css" rel="stylesheet">
-
         
 
 </head>

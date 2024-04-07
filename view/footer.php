@@ -81,7 +81,7 @@
     <!-- Core Vendors JS -->
     <script src="../public/js/vendors.min.js"></script>
     
-    <script src="../public/libs/select2/js/select2.min.js"></script>
+    <script src="../public/vendors/select2/select2.min.js"></script>
 
 
     <!-- page js -->
