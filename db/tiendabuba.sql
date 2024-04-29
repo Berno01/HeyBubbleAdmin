@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-04-2024 a las 18:46:30
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Tiempo de generación: 29-04-2024 a las 18:52:36
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `heybubble`
+-- Base de datos: `tiendabuba`
 --
 
 -- --------------------------------------------------------
@@ -140,7 +140,8 @@ CREATE TABLE `venta` (
 
 INSERT INTO `venta` (`id_venta`, `cliente_venta`, `total_venta`, `fecha_venta`, `estado_venta`) VALUES
 (1, 'Berno', 16, '2024-04-03 11:09:37', 1),
-(2, 'Juanito', 0, '2024-04-06 10:07:18', 1);
+(2, 'Juanito', 0, '2024-04-06 10:07:18', 1),
+(4, 'pruebasql', 14, '2024-04-29 12:33:45', 1);
 
 --
 -- Índices para tablas volcadas
@@ -226,7 +227,7 @@ ALTER TABLE `tamanio`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

@@ -64,7 +64,7 @@ Class buba
 
 	public function select()
 	{
-		$sql="SELECT id_buba, nombre_buba FROM buba WHERE estado_buba=0 ORDER BY nombre_buba ASC";
+		$sql="SELECT id_buba, nombre_buba FROM buba WHERE estado_buba=1 ORDER BY nombre_buba ASC";
 		return ejecutarConsulta($sql);		
 	}
 

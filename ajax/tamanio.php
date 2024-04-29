@@ -64,7 +64,7 @@ switch ($_GET["op"]){
 		{
 			echo '<option value=' . $reg['id_tamanio'] . '>' . $reg['precio_tamanio'] . '</option>';
 		}
-			echo '<option value="crearC">AGREGAR tamanio</option>'; 
+			
 	break;
 }
 ?>

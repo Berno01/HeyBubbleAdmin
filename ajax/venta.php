@@ -5,13 +5,13 @@ require_once "../model/Venta.php";
 $venta=new Venta();
 
 $id_venta=isset($_POST["id_venta"])? $_POST["id_venta"]:"";
-$proveedor=isset($_POST["proveedor"])? $_POST["proveedor"]:"";
+$cliente_venta=isset($_POST["cliente_venta"])? $_POST["cliente_venta"]:"";
 $tipo_comprobante=isset($_POST["tipo_comprobante"])? $_POST["tipo_comprobante"]:"";
 $serie_comprobante=isset($_POST["serie_comprobante"])? $_POST["serie_comprobante"]:"";
 $num_comprobante=isset($_POST["num_comprobante"])? $_POST["num_comprobante"]:"";
 $fecha_hora=isset($_POST["fecha_hora"])? $_POST["fecha_hora"]:"";
 $impuesto=isset($_POST["impuesto"])? $_POST["impuesto"]:"";
-$total_compra=isset($_POST["total_compra"])? $_POST["total_compra"]:"";
+$total_venta=isset($_POST["total_venta"])? $_POST["total_venta"]:"";
 
 switch ($_GET["op"]){
 	case '0':
@@ -48,8 +48,8 @@ switch ($_GET["op"]){
 	break;
 	case '1':
 		if (empty($id_venta)){
-			$rspta=$ingreso->insertar($cliente_venta, $total_venta,
-			$_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["cant_venta"],$_POST["precio_venta"]);
+			$rspta=$venta->insertar($cliente_venta, $total_venta,
+			$_POST["cantidad"], $_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["precio_venta"],$_POST["tipo_pago"]);
 			echo $rspta ? "1:Ingreso registrado" : "0:No se pudieron registrar todos los datos del ingreso";
 		}
 	break;
@@ -90,7 +90,7 @@ switch ($_GET["op"]){
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th><h4 id="total">Bs/.'.$total.'</h4><input type="hidden" name="total_compra" id="total_compra"></th> 
+                                    <th><h4 id="total">Bs/.'.$total.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
                                 </tfoot>';
 	break;
 }

@@ -1,7 +1,7 @@
 <?php 
 
 require_once "Global.php";
-$conexion = mysqli_connect("localhost", "root", "", "heybubble");
+$conexion = mysqli_connect("localhost", "root", "", "tiendabuba");
 
 if (!$conexion)
 {

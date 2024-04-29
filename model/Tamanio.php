@@ -64,7 +64,7 @@ Class Tamanio
 
 	public function select()
 	{
-		$sql="SELECT id_tamanio, precio_tamanio FROM tamanio WHERE estado_tamanio=0 ORDER BY precio_tamanio ASC";
+		$sql="SELECT id_tamanio, precio_tamanio FROM tamanio WHERE estado_tamanio=1 ORDER BY precio_tamanio ASC";
 		return ejecutarConsulta($sql);		
 	}
 

@@ -75,7 +75,7 @@ include("header.php");
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>
-                                                        <th><h4 id="total">Bs/. 0.00</h4><input type="hidden" name="total_compra" id="total_compra"></th> 
+                                                        <th><h4 id="total">Bs/. 0.00</h4><input type="hidden" name="total_venta" id="total_venta"></th> 
                                                     </tfoot>
                                                     <tbody>
                                                     

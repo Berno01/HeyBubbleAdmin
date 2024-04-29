@@ -64,7 +64,7 @@ Class Sabor
 
 	public function select()
 	{
-		$sql="SELECT id_sabor, nombre_sabor FROM sabor WHERE estado_sabor=0 ORDER BY nombre_sabor ASC";
+		$sql="SELECT id_sabor, nombre_sabor FROM sabor WHERE estado_sabor=1 ORDER BY nombre_sabor ASC";
 		return ejecutarConsulta($sql);		
 	}
 

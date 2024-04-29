@@ -11,11 +11,7 @@ function init(){
 	{
         guardaryeditar(e);	
 	});
-    $.post("../ajax/sabor.php?op=5", function(r){
-        console.log(r);
-	    $("#sabor").html(r);
-		$('#sabor').trigger('change.select2');
-	});
+    
 }
 
 //Función limpiar
@@ -23,7 +19,7 @@ function limpiar()
 {
 	$("#impuesto").val("0");
 
-	$("#total_compra").val("");
+	$("#total_venta").val("");
 	$(".filas").remove();
 	$("#total").html("0");
 	
@@ -47,6 +43,7 @@ function mostrarform(flag)
 	limpiar();
 	if (flag)
 	{
+		
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
 		//$("#btnGuardar").prop("disabled",false);
@@ -115,7 +112,7 @@ function guardaryeditar(e)
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
-		url: "../ajax/ingreso.php?op=1",
+		url: "../ajax/venta.php?op=1",
 	    type: "POST",
 	    data: formData,
 	    contentType: false,
@@ -225,6 +222,7 @@ function anular(idingreso)
 var impuesto=15;
 var cont=0;
 var detalles=0;
+var i=0;
 //$("#guardar").hide();
 $("#btnGuardar").hide();
 $("#tipo_comprobante").change(marcarImpuesto);
@@ -242,29 +240,63 @@ function marcarImpuesto()
     }
   }
 
-function agregarBubaB()
-{
+  function agregarBubaB() {
     var cantidad=1;
-    var precio_venta=1;
+    var precio_venta=0;
 
     
         var subtotal=cantidad*precio_venta;
         var fila='<tr class="filas" id="fila'+cont+'">'+
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
         '<td><input type="number" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-        '<td><select class="select2" name="id_sabor[]" ><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]'+i+'" ><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2 id_buba" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
+        '<td><select class="select2 id_tamanio" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
         '<td><select class="select2" name="tipo_pago[]"><option value="AP">Efectivo</option><option value="NL">QR</option></select> </td>'+
         '<td><input type="number" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
-        '<td><span name="subtotal" id="subtotal'+cont+'">'+subtotal+'</span></td>'+
+        '<td><span name="subtotal[]" id="subtotal[]'+cont+'">'+subtotal+'</span></td>'+
         '<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="mdi mdi-refresh"></i></button></td>'+
         '</tr>';
-        cont++;
-        detalles=detalles+1;
-        $('#detalles').append(fila);
-        modificarSubototales();
-    
+    cont++;
+    detalles++;
+    $('#detalles').append(fila);
+    cargarSabores();
+	cargarBubas();
+	cargarTamanios();
+    modificarSubototales();
+}
+
+function cargarSabores() {
+    $('.id_sabor').each(function() {
+        var select = $(this);
+        $.post("../ajax/sabor.php?op=5", function(r) {
+            select.html(r);
+            select.trigger('change.select2');
+            
+        });
+    });
+}
+
+function cargarBubas() {
+    $('.id_buba').each(function() {
+        var select = $(this);
+        $.post("../ajax/buba.php?op=5", function(r) {
+            select.html(r);
+            select.trigger('change.select2');
+            
+        });
+    });
+}
+
+function cargarTamanios() {
+    $('.id_tamanio').each(function() {
+        var select = $(this);
+        $.post("../ajax/tamanio.php?op=5", function(r) {
+            select.html(r);
+            select.trigger('change.select2');
+            
+        });
+    });
 }
 
 
@@ -272,28 +304,27 @@ function modificarSubototales()
 {
     var cant = document.getElementsByName("cantidad[]");
     var prec = document.getElementsByName("precio_venta[]");
-    var sub = document.getElementsByName("subtotal");
+    var sub = document.getElementsByName("subtotal[]");
 
     for (var i = 0; i <cant.length; i++) {
         var inpC=cant[i];
         var inpP=prec[i];
         var inpS=sub[i];
-
         inpS.value=inpC.value * inpP.value;
-        document.getElementsByName("subtotal")[i].innerHTML = inpS.value;
+        document.getElementsByName("subtotal[]")[i].innerHTML = inpS.value;
     }
     calcularTotales();
 
 }
 function calcularTotales(){
-    var sub = document.getElementsByName("subtotal");
+    var sub = document.getElementsByName("subtotal[]");
     var total = 0.0;
 
     for (var i = 0; i <sub.length; i++) {
-        total += document.getElementsByName("subtotal")[i].value;
+        total += document.getElementsByName("subtotal[]")[i].value;
     }
     $("#total").html("Bs/. " + total);
-    $("#total_compra").val(total);
+    $("#total_venta").val(total);
     evaluar();
 }
 
