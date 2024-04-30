@@ -13,8 +13,10 @@ Class Venta
 	//Implementamos un método para insertar registros
 	public function insertar($cliente_venta,$total_venta,$cant_venta,$id_buba,$id_tamanio,$id_sabor,$precio_venta, $tipo_pago)
 	{
-		$sql="INSERT INTO VENTA (cliente_venta, total_venta, fecha_venta) VALUES('$cliente_venta', $total_venta, now());SELECT LAST_INSERT_ID();";
-		$id_venta_new=ejecutarConsulta_retornarID($sql);
+		$sql="INSERT INTO VENTA (cliente_venta, total_venta, fecha_venta) VALUES('$cliente_venta', $total_venta, now());";
+		ejecutarConsulta($sql);
+		
+		$id_venta_new = retornarUltimoID();
 
 		$num_elementos=0;
 		$sw=true;

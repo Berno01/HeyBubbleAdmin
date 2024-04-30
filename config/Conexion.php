@@ -34,6 +34,14 @@ if (!function_exists('ejecutarConsulta'))
 		$new_id = $row['0'];
 		return $new_id;
 	}
+
+	function retornarUltimoID()
+	{
+		global $conexion;
+		$id_venta_new = mysqli_insert_id($conexion);
+		return $id_venta_new;
+	}
+
 	
 	function cerrar_conexion($sql)
 	{
