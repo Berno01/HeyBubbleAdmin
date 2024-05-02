@@ -31,9 +31,9 @@ switch ($_GET["op"]){
                 "2"=>$reg['cant_vasos'],
 				"3"=>$date,
                 "4"=>$reg['total_venta'],
-				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>'.
-					'<button class="btn btn-danger" onclick="entregar('.$reg['id_venta'].')"><i class="bx"></i></button>'.
-					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="bx bx-trash"></i></button>' :
+				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>'.
+					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
+					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
 					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>',
 				"6"=>$reg['id_venta']
 				);
