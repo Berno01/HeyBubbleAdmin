@@ -24,7 +24,7 @@ Class Venta
 		while ($num_elementos < count($id_tamanio))
 		{
 			$sql_detalle = "INSERT INTO detalle_venta
-			(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta, tipo_pago) 
+			(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta, id_tipo_pago) 
             VALUES 
 			('$id_venta_new', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
 			,'$cant_venta[$num_elementos]','$precio_venta[$num_elementos]','$tipo_pago[$num_elementos]')";
@@ -37,31 +37,60 @@ Class Venta
 
 	
 	//Implementamos un método para anular categorías
-	public function anular($idventa)
+	public function cancelar($id_venta)
 	{
-		$sql="UPDATE venta SET ventacondicion='0' WHERE idventa='$idventa'";
+		//0 cancelado, 1 pendiente (defecto), 2 entregado 
+		$sql="UPDATE venta SET estado_venta='0' WHERE id_venta='$id_venta'";
+		return ejecutarConsulta($sql);
+	}
+
+	public function entregar($id_venta)
+	{
+		//0 cancelado, 1 pendiente (defecto), 2 entregado 
+		$sql="UPDATE venta SET estado_venta='2' WHERE id_venta='$id_venta'";
 		return ejecutarConsulta($sql);
 	}
 
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idventa)
+	public function mostrar($id_venta)
 	{
-		$sql="SELECT i.idventa,DATE(i.ventafecha_hora) as fecha, i.idproveedor,p.personanombre as proveedornombre, p.personaap as proveedorap, p.personaam as proveedoram,u.idusuario,pr.personanombre as usuarionombre, pr.personaap as usuarioap, pr.personaam as usuarioam,i.ventatipo_comprobante,i.ventaserie_comprobante,i.ventanumero_comprobante,i.ventatotal_compra,i.ventaimpuesto,i.ventacondicion FROM venta i, persona p, proveedor r, persona pr, usuario u WHERE i.idproveedor=r.idproveedor AND r.idpersona=p.idpersona AND u.idusuario=i.idusuario AND u.idpersona=pr.idpersona AND i.idventa='$idventa'";
+		$sql="SELECT * from venta where id_venta='$id_venta';";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
-	public function listarDetalle($idventa)
+	public function listarDetalle($id_venta)
 	{
-		$sql="SELECT di.idventa,di.idarticulo,a.articulonombre,di.detalle_ventacantidad,di.detalle_ventaprecio_compra,di.detalle_ventaprecio_venta FROM detalle_venta di inner join articulo a on di.idarticulo=a.idarticulo where di.idventa='$idventa'";
+		$sql="SELECT di.id_venta, di.id_buba, b.nombre_buba, di.id_sabor, s.nombre_sabor, di.id_tamanio,t.precio_tamanio,di.precio_venta , di.cant_venta, di.precio_venta, di.id_tipo_pago, tp.nombre_tipo_pago FROM detalle_venta di inner join buba b on di.id_buba=b.id_buba inner join sabor s on di.id_sabor=s.id_sabor inner join tamanio t on di.id_tamanio=t.id_tamanio inner join pago tp on di.id_tipo_pago=tp.id_tipo_pago where di.id_venta='$id_venta';";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
+{
+    $sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
+            FROM venta v 
+            JOIN detalle_venta d ON v.id_venta = d.id_venta 
+            GROUP BY v.id_venta 
+            ORDER BY v.fecha_venta DESC"; // Ordenar por fecha de venta de la más antigua a la más reciente
+    
+    return ejecutarConsulta($sql);        
+}
+
+	public function listar1()
 	{
-		$sql="SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, sum(d.cant_venta) as cant_vasos, v.estado_venta from venta v join detalle_venta d on v.id_venta=d.id_venta group by id_venta";
-		return ejecutarConsulta($sql);		
+		// Obtener la fecha actual en formato YYYY-MM-DD
+		$fecha_actual = date('Y-m-d');
+		
+		// Consulta SQL para seleccionar las ventas del día actual
+		$sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
+				FROM venta v 
+				JOIN detalle_venta d ON v.id_venta = d.id_venta 
+				WHERE DATE(v.fecha_venta) = '$fecha_actual' 
+				GROUP BY v.id_venta";
+		
+		// Ejecutar la consulta y devolver el resultado
+		return ejecutarConsulta($sql);        
 	}
 	
 	public function ventacabecera($idventa){

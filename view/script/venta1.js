@@ -46,7 +46,7 @@ function mostrarform(flag)
 		
 		$("#listadoregistros").hide();
 		$("#formularioregistros").show();
-		//$("#btnGuardar").prop("disabled",false);
+		$("#btnGuardar").prop("disabled",false);
 		$("#btnagregar").hide();
 		
 
@@ -88,7 +88,7 @@ function listar(){
                     ],
             "ajax":
                     {
-                        url: '../ajax/venta.php?op=0',
+                        url: '../ajax/venta.php?op=10',
                         type : "get",
                         dataType : "json",						
                         error: function(e){
@@ -97,7 +97,7 @@ function listar(){
                     },
             "Destroy": true,
             "iDisplayLength": 10,//Paginación
-            "order": false//Ordenar (columna,orden)
+            "order": [[ 0, "desc" ]]//Ordenar (columna,orden)
         });
 }
 
@@ -279,7 +279,7 @@ function marcarImpuesto()
         '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]'+i+'" ><option value="NL">Nails</option></select> </td>'+
         '<td><select class="select2 id_buba" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
         '<td><select class="select2 id_tamanio" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2" name="tipo_pago[]"><option value="AP">Efectivo</option><option value="NL">QR</option></select> </td>'+
+        '<td><select class="select2" name="tipo_pago[]"><option value="0">Efectivo</option><option value="1">TarjetaCredito</option><option value="2">QR</option></select> </td>'+
         '<td><input type="number" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
         '<td><span name="subtotal[]" id="subtotal[]'+cont+'">'+subtotal+'</span></td>'+
         '<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa-solid fa-rotate-right"></i></button></td>'+

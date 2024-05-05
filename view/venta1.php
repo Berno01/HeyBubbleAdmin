@@ -28,7 +28,6 @@ include("header.php");
                                                 <th>Estado</th>
                                                 <th>Cliente</th>
                                                 <th>Vasos</th>
-                                                <th>Fecha</th>
                                                 <th>Hora</th>
                                                 <th>Total Compra</th>
                                                 <th>Opciones</th>
@@ -69,7 +68,6 @@ include("header.php");
                                                     </thead>
                                                     <tfoot>
                                                         <th>TOTAL</th>
-                                                        <th></th>
                                                         <th></th>
                                                         <th></th>
                                                         <th></th>
@@ -128,5 +126,5 @@ include("header.php");
             <?php
 include("footer.php");
 ?>
-<script type="text/javascript" src="script/venta.js"></script> 
+<script type="text/javascript" src="script/venta1.js"></script> 
             

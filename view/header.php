@@ -213,11 +213,19 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="dropdown-toggle" href="venta.php">
+                            <a class="dropdown-toggle" href="venta1.php">
                                 <span class="icon-holder">
                                     <i class="anticon anticon-hdd"></i>
                                 </span>
                                 <span href="venta.php" class="title">Ventas</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-toggle" href="venta.php">
+                                <span class="icon-holder">
+                                    <i class="anticon anticon-hdd"></i>
+                                </span>
+                                <span href="venta.php" class="title">Historial</span>
                             </a>
                         </li>
                         

@@ -21,21 +21,21 @@ switch ($_GET["op"]){
 
  		while ($reg = mysqli_fetch_assoc($rspta)){	
             $date = date_create($reg['fecha_venta']);
+			$hora = date_format($date, "H:i:s");
 			$date = date_format($date,"d/m/Y");	
+			
 			$data[]=array(
-				"0"=>($reg['estado_venta']=='1')?'<span class="badge bg-primary">Pendiente</span>':
-					(($reg['estado_venta']=='0')?'<span class="badge bg-danger">Anulado</span>':
-					'<span class="badge bg-primary">Entregado</span>'),
+				"0"=>($reg['estado_venta']=='1')?'<span class="badge bg-light">Pendiente</span>':
+					(($reg['estado_venta']=='0')?'<span class="badge bg-danger">Cancelado</span>':
+					'<span class="badge bg-success">Entregado</span>'),
 					
                 "1"=>$reg['cliente_venta'],
                 "2"=>$reg['cant_vasos'],
 				"3"=>$date,
-                "4"=>$reg['total_venta'],
-				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>'.
-					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
-					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
-					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="bx bx-search"></i></button>',
-				"6"=>$reg['id_venta']
+				"4"=>$hora,
+                "5"=>$reg['total_venta'],
+				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>',
+				"7"=>$reg['id_venta']
 				);
 		}
  		$results = array(
@@ -55,12 +55,12 @@ switch ($_GET["op"]){
 	break;
 
 	case '2':
-		$rspta=$ingreso->anular($id_venta);
- 		echo $rspta ? "1:Ingreso anulado" : "0:Ingreso no se puede anular";
+		$rspta=$venta->cancelar($id_venta);
+ 		echo $rspta ? "1:El pedido fue cancelado" : "0:Pedido no se puede anular";
 	break;
 
 	case '3':
-		$rspta=$ingreso->mostrar($id_venta);
+		$rspta=$venta->mostrar($id_venta);
  		//Codificar el resultado utilizando json
  		echo json_encode($rspta);
 	break;
@@ -69,20 +69,33 @@ switch ($_GET["op"]){
 		//Recibimos el id_venta
 		$id=$_GET['id'];
 
-		$rspta = $ingreso->listarDetalle($id);
+		$rspta = $venta->listarDetalle($id);
 		$total=0;
 		echo '<thead style="background-color:#A9D0F5">
-                                    <th>Opciones</th>
-                                    <th>Artículo</th>
-                                    <th>Cantidad</th>
-                                    <th>Precio Compra</th>
-                                    <th>Precio Venta</th>
+									<th>Op</th>
+									<th>Cant</th>
+                                    <th>Sabor</th>
+                                    <th>Buba</th>
+                                    <th>Tamaño</th>
+									<th>Pago</th>
+									<th>Precio</th>
                                     <th>Subtotal</th>
+									<th>Refresh</th>
                                 </thead>';
 
-        while ($reg = pg_fetch_assoc($rspta)){	
-					echo '<tr class="filas"><td></td><td>'.$reg['articulonombre'].'</td><td>'.$reg['detalle_ingresocantidad'].'</td><td>'.$reg['detalle_ingresoprecio_compra'].'</td><td>'.$reg['detalle_ingresoprecio_venta'].'</td><td>'.$reg['detalle_ingresoprecio_compra']*$reg['detalle_ingresocantidad'].'</td></tr>';
-					$total=$total+($reg['detalle_ingresoprecio_compra']*$reg['detalle_ingresocantidad']);
+        while ($reg = mysqli_fetch_assoc($rspta)){	
+					echo '<tr class="filas">
+							<td></td>
+							<td>'.$reg['cant_venta'].'</td>
+							<td>'.$reg['nombre_sabor'].'</td>
+							<td>'.$reg['nombre_buba'].'</td>
+							<td>'.$reg['precio_tamanio'].'</td>
+							<td>'.$reg['nombre_tipo_pago'].'</td>
+							<td>'.$reg['precio_venta'].'</td>
+							<td>'.$reg['precio_venta']*$reg['cant_venta'].'</td>
+							<td></td>
+						 </tr>';
+					$total=$total+($reg['precio_venta']*$reg['cant_venta']);
 				}
 		echo '<tfoot>
                                     <th>TOTAL</th>
@@ -90,8 +103,51 @@ switch ($_GET["op"]){
                                     <th></th>
                                     <th></th>
                                     <th></th>
+									<th></th>
+                                    <th></th>
                                     <th><h4 id="total">Bs/.'.$total.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
+									<th></th>
                                 </tfoot>';
 	break;
+
+	case '5':
+		$rspta=$venta->entregar($id_venta);
+ 		echo $rspta ? "1:El pedido fue entregado!" : "0:Pedido no se pudo entregar";
+	break;
+
+
+	case '10':
+		$rspta=$venta->listar1();
+ 		//Vamos a declarar un array
+ 		$data= Array();
+
+ 		while ($reg = mysqli_fetch_assoc($rspta)){	
+            $date = date_create($reg['fecha_venta']);
+			$hora = date_format($date, "H:i:s");
+			$data[]=array(
+				"0"=>($reg['estado_venta']=='1')?'<span class="badge bg-light">Pendiente</span>':
+					(($reg['estado_venta']=='0')?'<span class="badge bg-danger">Cancelado</span>':
+					'<span class="badge bg-success">Entregado</span>'),
+					
+                "1"=>$reg['cliente_venta'],
+                "2"=>$reg['cant_vasos'],
+				"3"=>$hora,
+                "4"=>$reg['total_venta'],
+				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>'.
+					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
+					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
+					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></button>',
+				"6"=>$reg['id_venta']
+				);
+		}
+ 		$results = array(
+ 			"sEcho"=>1, //Información para el datatables
+ 			"iTotalRecords"=>count($data), //enviamos el total registros al datatable
+ 			"iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+ 			"aaData"=>$data);
+ 		echo json_encode($results);
+
+	break;
+
 }
 ?>
