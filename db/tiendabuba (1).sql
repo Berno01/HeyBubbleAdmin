@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-04-2024 a las 18:52:36
+-- Tiempo de generación: 05-05-2024 a las 20:24:05
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.0.28
 
@@ -55,17 +55,24 @@ CREATE TABLE `detalle_venta` (
   `precio_venta` double NOT NULL,
   `id_buba` int(11) NOT NULL,
   `id_tamanio` int(11) NOT NULL,
-  `tipo_pago` tinyint(4) NOT NULL
+  `id_tipo_pago` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `detalle_venta`
 --
 
-INSERT INTO `detalle_venta` (`id_venta`, `id_detalle_venta`, `cant_venta`, `id_sabor`, `precio_venta`, `id_buba`, `id_tamanio`, `tipo_pago`) VALUES
+INSERT INTO `detalle_venta` (`id_venta`, `id_detalle_venta`, `cant_venta`, `id_sabor`, `precio_venta`, `id_buba`, `id_tamanio`, `id_tipo_pago`) VALUES
 (1, 2, 2, 1, 32, 1, 1, 0),
 (1, 3, 2, 1, 32, 2, 2, 2),
-(2, 4, 1, 2, 14, 1, 2, 0);
+(2, 4, 1, 2, 14, 1, 2, 0),
+(5, 5, 1, 2, 14, 1, 1, 0),
+(6, 6, 3, 2, 16, 1, 2, 0),
+(6, 7, 1, 2, 14, 2, 1, 0),
+(8, 8, 1, 2, 14, 1, 1, 1),
+(9, 9, 2, 2, 14, 1, 1, 0),
+(10, 10, 1, 2, 14, 1, 1, 0),
+(10, 11, 3, 1, 14, 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -74,10 +81,18 @@ INSERT INTO `detalle_venta` (`id_venta`, `id_detalle_venta`, `cant_venta`, `id_s
 --
 
 CREATE TABLE `pago` (
-  `id_pago` int(11) NOT NULL,
-  `tipo_pago` varchar(50) NOT NULL,
-  `estado_pago` tinyint(1) NOT NULL
+  `id_tipo_pago` tinyint(4) NOT NULL,
+  `nombre_tipo_pago` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pago`
+--
+
+INSERT INTO `pago` (`id_tipo_pago`, `nombre_tipo_pago`) VALUES
+(0, 'EFECTIVO'),
+(1, 'TARJETA'),
+(2, 'QR');
 
 -- --------------------------------------------------------
 
@@ -139,9 +154,15 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`id_venta`, `cliente_venta`, `total_venta`, `fecha_venta`, `estado_venta`) VALUES
-(1, 'Berno', 16, '2024-04-03 11:09:37', 1),
+(1, 'Berno', 16, '2024-04-03 11:09:37', 0),
 (2, 'Juanito', 0, '2024-04-06 10:07:18', 1),
-(4, 'pruebasql', 14, '2024-04-29 12:33:45', 1);
+(4, 'pruebasql', 14, '2024-04-29 12:33:45', 1),
+(5, 'pruebiña1', 14, '2024-04-30 10:22:47', 1),
+(6, 'PruebaFinalpana', 62, '2024-04-30 10:25:36', 2),
+(7, 'PruebaFinalpana', 16, '2024-05-05 13:48:57', 1),
+(8, 'PruebaFinalpana', 14, '2024-05-05 13:56:46', 2),
+(9, 'pruebiña', 28, '2024-05-05 13:58:49', 2),
+(10, 'pruebiña', 56, '2024-05-05 13:59:09', 0);
 
 --
 -- Índices para tablas volcadas
@@ -162,13 +183,14 @@ ALTER TABLE `detalle_venta`
   ADD KEY `id_producto` (`id_sabor`),
   ADD KEY `id_buba` (`id_buba`),
   ADD KEY `id_tamaño` (`id_tamanio`),
-  ADD KEY `id_venta` (`id_venta`);
+  ADD KEY `id_venta` (`id_venta`),
+  ADD KEY `id_tipo_pago` (`id_tipo_pago`);
 
 --
 -- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
-  ADD PRIMARY KEY (`id_pago`);
+  ADD PRIMARY KEY (`id_tipo_pago`);
 
 --
 -- Indices de la tabla `sabor`
@@ -203,13 +225,7 @@ ALTER TABLE `buba`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `pago`
---
-ALTER TABLE `pago`
-  MODIFY `id_pago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `sabor`
@@ -227,7 +243,7 @@ ALTER TABLE `tamanio`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
@@ -240,7 +256,8 @@ ALTER TABLE `detalle_venta`
   ADD CONSTRAINT `detalle_venta_ibfk_2` FOREIGN KEY (`id_buba`) REFERENCES `buba` (`id_buba`) ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_venta_ibfk_3` FOREIGN KEY (`id_sabor`) REFERENCES `sabor` (`id_sabor`) ON UPDATE CASCADE,
   ADD CONSTRAINT `detalle_venta_ibfk_4` FOREIGN KEY (`id_tamanio`) REFERENCES `tamanio` (`id_tamanio`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_venta_ibfk_5` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalle_venta_ibfk_5` FOREIGN KEY (`id_venta`) REFERENCES `venta` (`id_venta`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `detalle_venta_ibfk_6` FOREIGN KEY (`id_tipo_pago`) REFERENCES `pago` (`id_tipo_pago`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
