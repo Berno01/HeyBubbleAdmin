@@ -10,31 +10,41 @@ Class Venta
 
 	}
 
-	//Implementamos un método para insertar registros
+//Implementamos un método para insertar registros
 	public function insertar($cliente_venta,$total_venta,$cant_venta,$id_buba,$id_tamanio,$id_sabor,$precio_venta, $tipo_pago)
 	{
-		$sql="INSERT INTO VENTA (cliente_venta, total_venta, fecha_venta) VALUES('$cliente_venta', $total_venta, now());";
+	    $fecha_HoraActual= date('Y-m-d H:i:s');
+	    $fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
+		$sql="INSERT INTO venta (cliente_venta, total_venta,total_venta_qr, fecha_venta) VALUES('$cliente_venta', 0,0, '$fecha_utc_4');";
 		ejecutarConsulta($sql);
 		
 		$id_venta_new = retornarUltimoID();
-
 		$num_elementos=0;
+		$qr=0;
 		$sw=true;
+		// Convertir $total_venta de cadena a float
+		$total_venta = floatval($total_venta);
 
 		while ($num_elementos < count($id_tamanio))
 		{
+			if($tipo_pago[$num_elementos]=='1'||$tipo_pago[$num_elementos]=='2' ){
+				$qr=$qr + ($cant_venta[$num_elementos]*$precio_venta[$num_elementos]);
+				
+				
+			}
 			$sql_detalle = "INSERT INTO detalle_venta
 			(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta, id_tipo_pago) 
             VALUES 
 			('$id_venta_new', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
 			,'$cant_venta[$num_elementos]','$precio_venta[$num_elementos]','$tipo_pago[$num_elementos]')";
-			ejecutarConsulta($sql_detalle) or $sw = false;
+			ejecutarConsulta($sql_detalle);
 			$num_elementos=$num_elementos + 1;
-		}
-
+		}// Restar $qr de $total_venta
+				$total_venta -= $qr;
+		$sql="update venta set total_venta_qr=$qr, total_venta =$total_venta where id_venta=$id_venta_new;";
+		ejecutarConsulta($sql);
 		return $sw;
 	}
-
 	
 	//Implementamos un método para anular categorías
 	public function cancelar($id_venta)

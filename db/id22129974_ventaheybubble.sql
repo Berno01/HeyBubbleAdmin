@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 05-05-2024 a las 20:24:05
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Servidor: localhost:3306
+-- Tiempo de generación: 15-05-2024 a las 16:20:44
+-- Versión del servidor: 10.5.20-MariaDB
+-- Versión de PHP: 7.3.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tiendabuba`
+-- Base de datos: `id22129974_ventaheybubble`
 --
 
 -- --------------------------------------------------------
@@ -63,16 +63,17 @@ CREATE TABLE `detalle_venta` (
 --
 
 INSERT INTO `detalle_venta` (`id_venta`, `id_detalle_venta`, `cant_venta`, `id_sabor`, `precio_venta`, `id_buba`, `id_tamanio`, `id_tipo_pago`) VALUES
-(1, 2, 2, 1, 32, 1, 1, 0),
-(1, 3, 2, 1, 32, 2, 2, 2),
-(2, 4, 1, 2, 14, 1, 2, 0),
-(5, 5, 1, 2, 14, 1, 1, 0),
-(6, 6, 3, 2, 16, 1, 2, 0),
-(6, 7, 1, 2, 14, 2, 1, 0),
-(8, 8, 1, 2, 14, 1, 1, 1),
-(9, 9, 2, 2, 14, 1, 1, 0),
-(10, 10, 1, 2, 14, 1, 1, 0),
-(10, 11, 3, 1, 14, 1, 1, 0);
+(25, 38, 1, 1, 18, 2, 3, 2),
+(25, 39, 1, 2, 14, 2, 1, 0),
+(26, 40, 1, 2, 14, 1, 1, 0),
+(26, 41, 2, 2, 16, 2, 2, 2),
+(27, 42, 1, 2, 18, 1, 3, 0),
+(28, 43, 3, 2, 14, 2, 1, 0),
+(28, 44, 1, 1, 16, 2, 2, 2),
+(28, 45, 1, 2, 18, 1, 3, 1),
+(29, 46, 3, 1, 14, 1, 1, 2),
+(29, 47, 2, 1, 16, 1, 2, 1),
+(29, 48, 6, 2, 18, 2, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -145,6 +146,7 @@ CREATE TABLE `venta` (
   `id_venta` int(11) NOT NULL,
   `cliente_venta` varchar(100) NOT NULL,
   `total_venta` double NOT NULL,
+  `total_venta_qr` double NOT NULL,
   `fecha_venta` datetime NOT NULL,
   `estado_venta` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -153,16 +155,12 @@ CREATE TABLE `venta` (
 -- Volcado de datos para la tabla `venta`
 --
 
-INSERT INTO `venta` (`id_venta`, `cliente_venta`, `total_venta`, `fecha_venta`, `estado_venta`) VALUES
-(1, 'Berno', 16, '2024-04-03 11:09:37', 0),
-(2, 'Juanito', 0, '2024-04-06 10:07:18', 1),
-(4, 'pruebasql', 14, '2024-04-29 12:33:45', 1),
-(5, 'pruebiña1', 14, '2024-04-30 10:22:47', 1),
-(6, 'PruebaFinalpana', 62, '2024-04-30 10:25:36', 2),
-(7, 'PruebaFinalpana', 16, '2024-05-05 13:48:57', 1),
-(8, 'PruebaFinalpana', 14, '2024-05-05 13:56:46', 2),
-(9, 'pruebiña', 28, '2024-05-05 13:58:49', 2),
-(10, 'pruebiña', 56, '2024-05-05 13:59:09', 0);
+INSERT INTO `venta` (`id_venta`, `cliente_venta`, `total_venta`, `total_venta_qr`, `fecha_venta`, `estado_venta`) VALUES
+(25, 'BernardoRuedaAvila', 14, 14, '2024-05-13 17:12:31', 2),
+(26, 'Bernardo Rueda Florencio', 14, 32, '2024-05-15 11:19:38', 1),
+(27, 'Bernardo Rueda Florencio', 0, 0, '2024-05-15 11:53:31', 1),
+(28, 'Bernardo Ruedklk', -50, 34, '2024-05-15 12:05:16', 1),
+(29, '', 108, 74, '2024-05-15 12:10:06', 1);
 
 --
 -- Índices para tablas volcadas
@@ -225,7 +223,7 @@ ALTER TABLE `buba`
 -- AUTO_INCREMENT de la tabla `detalle_venta`
 --
 ALTER TABLE `detalle_venta`
-  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_detalle_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `sabor`
@@ -243,7 +241,7 @@ ALTER TABLE `tamanio`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_venta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Restricciones para tablas volcadas

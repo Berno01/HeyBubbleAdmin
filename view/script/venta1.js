@@ -17,23 +17,14 @@ function init(){
 //Función limpiar
 function limpiar()
 {
-	$("#impuesto").val("0");
-
 	$("#total_venta").val("");
+	$("#total_venta_qr").val("");
 	$(".filas").remove();
 	$("#total").html("0");
+	$("#total_qr").html("");
+	$("#cliente_venta").val("");
 	
-    //Marcamos el primer tipo_documento
-    $("#tipo_comprobante").val("1");
-	$('#tipo_comprobante').trigger('change.select2');
-
-    /*
-    $.post("../ajax/proveedor.php?op=5", function(r){
-        console.log(r);
-	    $("#proveedor").html(r);
-		$('#proveedor').trigger('change.select2');
-	});
-    */
+    
 
 }
 
@@ -107,8 +98,9 @@ function listar(){
 
 function guardaryeditar(e)
 {
+	modificarSubototales();
 	e.preventDefault(); //No se activará la acción predeterminada del evento
-	$("#btnGuardar").prop("disabled",true);
+	//$("#btnGuardar").prop("disabled",true);
 	var formData = new FormData($("#formulario")[0]);
 
 	$.ajax({
@@ -124,7 +116,7 @@ function guardaryeditar(e)
 			mensaje=datos.split(":");
 			if(mensaje[0]=="1"){               
 			swal.fire(
-				'Mensaje de Confirmación',
+				'Venta registrada :)',
 				mensaje[1],
 				'success'
 
@@ -133,7 +125,9 @@ function guardaryeditar(e)
 	          tabla.ajax.reload();
 			}
 			else{
+				mesaje[1]="Por favor agrega un vaso a la venta";
 				Swal.fire({
+					
 					type: 'error',
 					title: 'Error',
 					text: mensaje[1],
@@ -148,14 +142,16 @@ function guardaryeditar(e)
 
 function mostrar(id_venta)
 {
+	var qr=0;
 	$.post("../ajax/venta.php?op=3",{id_venta : id_venta}, function(data, status)
 	{
-        console.log(data);
+        
 		data = JSON.parse(data);		
 		mostrarform(true);
 
 		$("#cliente_venta").val(data.cliente_venta);
-		
+		qr=data.total_venta_qr;
+		total=data.total_venta;
 		//$("#fecha_hora").val(data.fecha);
 		//$("#idingreso").val(data.idingreso);
 
@@ -163,12 +159,12 @@ function mostrar(id_venta)
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		$("#btnAgregarBuba").hide();
+		$.post("../ajax/venta.php?op=4&id="+id_venta+"&qr="+qr+"&total="+total,function(r){
+			$("#detalles").html(r);
+		});
 
  	});
-
- 	$.post("../ajax/venta.php?op=4&id="+id_venta,function(r){
-	    $("#detalles").html(r);
-	});
+ 	
 }
 
 //Función para anular registros

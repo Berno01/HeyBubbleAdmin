@@ -34,7 +34,7 @@ switch ($_GET["op"]){
 				"3"=>$date,
 				"4"=>$hora,
                 "5"=>$reg['total_venta'],
-				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>',
+				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
 				"7"=>$reg['id_venta']
 				);
 		}
@@ -50,7 +50,7 @@ switch ($_GET["op"]){
 		if (empty($id_venta)){
 			$rspta=$venta->insertar($cliente_venta, $total_venta,
 			$_POST["cantidad"], $_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["precio_venta"],$_POST["tipo_pago"]);
-			echo $rspta ? "1:Ingreso registrado" : "0:No se pudieron registrar todos los datos del ingreso";
+			echo $rspta ? "1:No olvides confirmar la entrega después" : "0:No se pudieron registrar todos los datos del ingreso";
 		}
 	break;
 
@@ -68,9 +68,10 @@ switch ($_GET["op"]){
 	case '4':
 		//Recibimos el id_venta
 		$id=$_GET['id'];
-
+		$qr=$_GET['qr'];
+		$total_ventaklk=$_GET['total'];
 		$rspta = $venta->listarDetalle($id);
-		$total=0;
+		
 		echo '<thead style="background-color:#A9D0F5">
 									<th>Op</th>
 									<th>Cant</th>
@@ -95,7 +96,7 @@ switch ($_GET["op"]){
 							<td>'.$reg['precio_venta']*$reg['cant_venta'].'</td>
 							<td></td>
 						 </tr>';
-					$total=$total+($reg['precio_venta']*$reg['cant_venta']);
+					
 				}
 		echo '<tfoot>
                                     <th>TOTAL</th>
@@ -104,8 +105,8 @@ switch ($_GET["op"]){
                                     <th></th>
                                     <th></th>
 									<th></th>
-                                    <th></th>
-                                    <th><h4 id="total">Bs/.'.$total.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
+                                    <th><h4 id="total">Bs/.'.$total_ventaklk.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
+									<th><h4 id="total_qr">QR/.'.$qr.'</h4><input type="hidden" name="total_total_venta_qr" id="total_total_venta_qr"></th> 
 									<th></th>
                                 </tfoot>';
 	break;
@@ -133,10 +134,10 @@ switch ($_GET["op"]){
                 "2"=>$reg['cant_vasos'],
 				"3"=>$hora,
                 "4"=>$reg['total_venta'],
-				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></i></button>'.
+				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>'.
 					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
 					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
-					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pen"></button>',
+					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
 				"6"=>$reg['id_venta']
 				);
 		}
