@@ -29,7 +29,8 @@ include("header.php");
                                                 <th>Cliente</th>
                                                 <th>Vasos</th>
                                                 <th>Hora</th>
-                                                <th>Total Compra</th>
+                                                <th>Efect</th>
+                                                <th>QR</th>
                                                 <th>Opciones</th>
                                             </tr>
                                         </thead>
@@ -50,19 +51,19 @@ include("header.php");
                                             </div> 
                                             
                                             <div class="form-group col-lg-3 col-md-3 col-sm-6 col-xs-12">     
-                                                <button id="btnAgregarBuba" type="button" class="btn btn-primary waves-effect waves-light" onclick="agregarBubaB()"><span class="fa fa-plus"></span>Agregar Buba</button>
+                                                <button id="btnAgregarBuba" type="button" class="btn btn-success waves-effect waves-light" onclick="agregarBubaB()"><span class="fa fa-plus"></span>Agregar Buba</button>
                                             </div>
 
                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                 <table id="detalles" class="table table-hover e-commerce-table">
-                                                <thead style="background-color:#A9D0F5">
+                                                <thead style="background-color:#f378b1">
                                                         <th>Op</th>
-                                                        <th>Cant</th>
+                                                        <th>Cantidad</th>
                                                         <th>Sabor</th>
                                                         <th>Buba</th>
                                                         <th>Tamaño</th>
                                                         <th>Pago</th>
-                                                        <th>Precio</th>
+                                                        <th>Precio Unitario</th>
                                                         <th>Subtotal</th>
                                                         <th>Refresh</th>
                                                     </thead>
@@ -82,38 +83,11 @@ include("header.php");
                                                 </table>
                                             </div>                  
                                             <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <button class="btn btn-primary" type="submit" id="btnGuardar"><i class="bx bx-save"></i> Guardar</button>
-                                                <button class="btn btn-danger" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
+                                                <button class="btn btn-success" type="submit" id="btnGuardar"><i class="bx bx-save"></i> Guardar</button>
+                                                <button class="btn btn-warning" onclick="cancelarform()" type="button"><i class="fa fa-arrow-circle-left"></i> Cancelar</button>
                                             </div>
                                         </form>
-                                        <!-- Modal -->
-                                        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title">Seleccione un Artículo</h5>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <table id="tblarticulos" class="table table-striped table-bordered table-condensed table-hover">
-                                                                    <thead>
-                                                                        <th>Opciones</th>
-                                                                        <th>Nombre</th>
-                                                                        <th>Categoría</th>
-                                                                        <th>Código</th>
-                                                                        <th>Stock</th>
-                                                                        <th>Imagen</th>
-                                                                    </thead>
-                                                                    <tbody>                                                                    
-                                                                    </tbody>
-                                                                    <tfoot>
-                                                                    </tfoot>
-                                                                </table>
-                                                            </div>
-                                                        </div><!-- /.modal-content -->
-                                                    </div><!-- /.modal-dialog -->
-                                                </div>  
-                                                <!-- Fin modal -->
+                                        
                                     </div>
                                 </div>
                             </div> <!-- end col -->

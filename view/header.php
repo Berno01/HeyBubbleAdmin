@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Enlink - Admin Dashboard Template</title>
+    <title>HeyBubble-Admin</title>
     <link href="../public/vendors/select2/select2.css" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="../public/images/logo/favicon.png">
+    <link rel="shortcut icon" href="../public/images/logo/iconpage.jpg">
 
     <!-- page css -->
     <link href="../public/vendors/datatables/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -29,14 +29,14 @@
             <div class="header">
                 <div class="logo logo-dark">
                     <a href="view/index.html">
-                        <img src="../public/images/logo/logo.png" alt="Logo">
-                        <img class="logo-fold" src="../public/images/logo/logo-fold.png" alt="Logo">
+                        <img src="../public/images/logo/logoHeyBubble.jpeg" alt="Logo">
+                        <img class="logo-fold" src="../public/images/logo/logoHeyBubble.jpeg" alt="Logo">
                     </a>
                 </div>
                 <div class="logo logo-white">
                     <a href="view/index.html">
-                        <img src="../public/images/logo/logo-white.png" alt="Logo">
-                        <img class="logo-fold" src="../public/images/logo/logo-fold-white.png" alt="Logo">
+                        <img src="../public/images/logo/logoHeyBubble.jpeg" alt="Logo">
+                        <img class="logo-fold" src="../public/images/logo/logoHeyBubble.jpeg" alt="Logo">
                     </a>
                 </div>
                 <div class="nav-wrap">

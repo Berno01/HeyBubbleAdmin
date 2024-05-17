@@ -34,8 +34,9 @@ switch ($_GET["op"]){
 				"3"=>$date,
 				"4"=>$hora,
                 "5"=>$reg['total_venta'],
-				"6"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
-				"7"=>$reg['id_venta']
+				"6"=>$reg['total_venta_qr'],
+				"7"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
+				"8"=>$reg['id_venta']
 				);
 		}
  		$results = array(
@@ -72,14 +73,14 @@ switch ($_GET["op"]){
 		$total_ventaklk=$_GET['total'];
 		$rspta = $venta->listarDetalle($id);
 		
-		echo '<thead style="background-color:#A9D0F5">
+		echo '<thead style="background-color:#f378b1">
 									<th>Op</th>
-									<th>Cant</th>
+									<th>Cantidad</th>
                                     <th>Sabor</th>
                                     <th>Buba</th>
                                     <th>Tamaño</th>
 									<th>Pago</th>
-									<th>Precio</th>
+									<th>Precio Unitario</th>
                                     <th>Subtotal</th>
 									<th>Refresh</th>
                                 </thead>';
@@ -134,11 +135,12 @@ switch ($_GET["op"]){
                 "2"=>$reg['cant_vasos'],
 				"3"=>$hora,
                 "4"=>$reg['total_venta'],
-				"5"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>'.
+				"5"=>$reg['total_venta_qr'],
+				"6"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>'.
 					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
 					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
 					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
-				"6"=>$reg['id_venta']
+				"7"=>$reg['id_venta']
 				);
 		}
  		$results = array(

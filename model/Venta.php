@@ -15,7 +15,7 @@ Class Venta
 	{
 	    $fecha_HoraActual= date('Y-m-d H:i:s');
 	    $fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
-		$sql="INSERT INTO venta (cliente_venta, total_venta,total_venta_qr, fecha_venta) VALUES('$cliente_venta', 0,0, '$fecha_utc_4');";
+		$sql="INSERT INTO venta (cliente_venta, total_venta,total_venta_qr, fecha_venta) VALUES('$cliente_venta',$total_venta,0, '$fecha_utc_4');";
 		ejecutarConsulta($sql);
 		
 		$id_venta_new = retornarUltimoID();
@@ -40,7 +40,7 @@ Class Venta
 			ejecutarConsulta($sql_detalle);
 			$num_elementos=$num_elementos + 1;
 		}// Restar $qr de $total_venta
-				$total_venta -= $qr;
+		$total_venta =$total_venta - $qr;
 		$sql="update venta set total_venta_qr=$qr, total_venta =$total_venta where id_venta=$id_venta_new;";
 		ejecutarConsulta($sql);
 		return $sw;
@@ -78,7 +78,7 @@ Class Venta
 	//Implementar un método para listar los registros
 	public function listar()
 {
-    $sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
+    $sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta,v.total_venta_qr, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
             FROM venta v 
             JOIN detalle_venta d ON v.id_venta = d.id_venta 
             GROUP BY v.id_venta 
@@ -93,11 +93,12 @@ Class Venta
 		$fecha_actual = date('Y-m-d');
 		
 		// Consulta SQL para seleccionar las ventas del día actual
-		$sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
+		$sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta,v.total_venta_qr, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
 				FROM venta v 
 				JOIN detalle_venta d ON v.id_venta = d.id_venta 
 				WHERE DATE(v.fecha_venta) = '$fecha_actual' 
-				GROUP BY v.id_venta";
+				GROUP BY v.id_venta
+				ORDER BY v.fecha_venta DESC";
 		
 		// Ejecutar la consulta y devolver el resultado
 		return ejecutarConsulta($sql);        

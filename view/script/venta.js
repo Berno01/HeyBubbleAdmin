@@ -148,14 +148,16 @@ function guardaryeditar(e)
 
 function mostrar(id_venta)
 {
+	var qr=0;
 	$.post("../ajax/venta.php?op=3",{id_venta : id_venta}, function(data, status)
 	{
-        console.log(data);
+        
 		data = JSON.parse(data);		
 		mostrarform(true);
 
 		$("#cliente_venta").val(data.cliente_venta);
-		
+		qr=data.total_venta_qr;
+		total=data.total_venta;
 		//$("#fecha_hora").val(data.fecha);
 		//$("#idingreso").val(data.idingreso);
 
@@ -163,12 +165,12 @@ function mostrar(id_venta)
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		$("#btnAgregarBuba").hide();
+		$.post("../ajax/venta.php?op=4&id="+id_venta+"&qr="+qr+"&total="+total,function(r){
+			$("#detalles").html(r);
+		});
 
  	});
-
- 	$.post("../ajax/venta.php?op=4&id="+id_venta,function(r){
-	    $("#detalles").html(r);
-	});
+ 	
 }
 
 //Función para anular registros

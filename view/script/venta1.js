@@ -122,7 +122,10 @@ function guardaryeditar(e)
 
 				);           
 	          mostrarform(false);
-	          tabla.ajax.reload();
+	          
+			  setTimeout(function() {
+				window.location.href = 'venta1.php';
+			}, 1200);
 			}
 			else{
 				mesaje[1]="Por favor agrega un vaso a la venta";
@@ -248,37 +251,24 @@ var detalles=0;
 var i=0;
 //$("#guardar").hide();
 $("#btnGuardar").hide();
-$("#tipo_comprobante").change(marcarImpuesto);
 
-function marcarImpuesto()
-  {
-  	var tipo_comprobante=$("#tipo_comprobante option:selected").text();
-  	if (tipo_comprobante=='Factura')
-    {
-        $("#impuesto").val(impuesto); 
-    }
-    else
-    {
-        $("#impuesto").val("0"); 
-    }
-  }
 
   function agregarBubaB() {
     var cantidad=1;
-    var precio_venta=0;
+    var precio_venta=14;
 
     
         var subtotal=cantidad*precio_venta;
         var fila='<tr class="filas" id="fila'+cont+'">'+
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-        '<td><input type="number" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-        '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]'+i+'" ><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2 id_buba" name="id_buba[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2 id_tamanio" name="id_tamanio[]"><option value="AP">Apples</option><option value="NL">Nails</option></select> </td>'+
-        '<td><select class="select2" name="tipo_pago[]"><option value="0">Efectivo</option><option value="1">TarjetaCredito</option><option value="2">QR</option></select> </td>'+
-        '<td><input type="number" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
+        '<td><input type="text" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
+        '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]'+i+'" ></select> </td>'+
+        '<td><select class="select2 id_buba" name="id_buba[]"></select> </td>'+
+        '<td><select class="select2 id_tamanio" name="id_tamanio[]"></select> </td>'+
+        '<td><select class="select2" name="tipo_pago[]"><option value="0">Efect</option><option value="2">QR</option></select> </td>'+
+        '<td><input type="text" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
         '<td><span name="subtotal[]" id="subtotal[]'+cont+'">'+subtotal+'</span></td>'+
-        '<td><button type="button" onclick="modificarSubototales()" class="btn btn-info"><i class="fa-solid fa-rotate-right"></i></button></td>'+
+        '<td><button type="button" onclick="modificarSubototales()" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></button></td>'+
         '</tr>';
     cont++;
     detalles++;
@@ -305,7 +295,7 @@ function cargarBubas() {
         var select = $(this);
         $.post("../ajax/buba.php?op=5", function(r) {
             select.html(r);
-            select.trigger('change.select2');
+            //select.trigger('change.select2');
             
         });
     });
