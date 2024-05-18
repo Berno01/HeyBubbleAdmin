@@ -12,7 +12,8 @@ include("header.php");
                                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                                     <h4 class="mb-sm-0">Venta de bubbles &nbsp; 
                                         <button class="btn btn-success" id="btnagregar" onclick="mostrarform(true)"><i class="bx bx-add-to-queue"></i> Nuevo</button></h4>
-                                    
+                                        <button class="btn btn-success" id="btnReport" onclick="reporte()"><i class="bx bx-add-to-queue"></i> Reporte</button></h4>
+
                                 </div>
                             </div>
                         </div>
@@ -95,6 +96,26 @@ include("header.php");
                         <!-- end row -->            
                 </div>
             
+
+                <!-- Modal -->
+                <div class="modal fade" id="reporte">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenterTitle">Reporte</h5>
+                                <button type="button" onclick="cancelarform1()" class="close" data-dismiss="modal">
+                                    <i class="anticon anticon-close"></i>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="reporte_txt">Total de vasos vendidos:</p>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelarReport()">Cerrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             <?php

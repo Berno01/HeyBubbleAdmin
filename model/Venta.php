@@ -103,6 +103,27 @@ Class Venta
 		// Ejecutar la consulta y devolver el resultado
 		return ejecutarConsulta($sql);        
 	}
+
+
+	public function reporte()
+	{
+		// Obtener la fecha actual en formato YYYY-MM-DD
+		$fecha_actual = date('Y-m-d');
+		
+		// Consulta SQL para seleccionar las ventas del día actual
+		$sql = "SELECT 
+		(SELECT SUM(total_venta) FROM venta WHERE fecha_venta LIKE '2024-05-17%' AND estado_venta = 2) AS suma_total_venta,
+		(SELECT SUM(total_venta_qr) FROM venta WHERE fecha_venta LIKE '2024-05-17%' AND estado_venta = 2) AS suma_total_venta_qr,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2) AS total_vasos_vendidos";
+		
+		// Ejecutar la consulta y devolver el resultado
+		return ejecutarConsulta($sql);        
+	}
+
+	
 	
 	public function ventacabecera($idventa){
 		$sql="SELECT i.idventa, i.idproveedor,p.personanombre as proveedornombre, p.personaap as proveedorap, p.personaam as proveedoram,u.idusuario,pr.personanombre as usuarionombre, pr.personaap as usuarioap, pr.personaam as usuarioam,i.ventatipo_comprobante,i.ventaserie_comprobante,i.ventanumero_comprobante,i.ventatotal_compra,i.ventaimpuesto,i.ventacondicion FROM venta i, persona p, proveedor r, persona pr, usuario u WHERE i.idproveedor=r.idproveedor AND r.idpersona=p.idpersona AND u.idusuario=i.idusuario AND u.idpersona=pr.idpersona AND i.idventa='$idventa'";

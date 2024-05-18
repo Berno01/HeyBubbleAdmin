@@ -170,6 +170,46 @@ function mostrar(id_venta)
  	
 }
 
+function reporte()
+{
+	
+	$.post("../ajax/venta.php?op=6", function(r) {
+		console.log(r);
+		var parrafo = document.getElementById('reporte_txt');
+
+// Cambia el texto del elemento <p>
+	parrafo.innerHTML = r;
+		mostrarReport(true);
+
+		
+	});
+ 	
+}
+
+function mostrarReport(flag)
+{
+	
+	if (flag)
+	{
+		
+		$('#reporte').modal('show');
+		
+	}
+	else
+	{
+		$('#reporte').modal('hide');
+	}
+}
+
+//Función cancelarform
+function cancelarReport()
+{
+	
+	mostrarReport(false);
+}
+
+
+
 //Función para anular registros
 function cancelar(id_venta)
 {

@@ -152,5 +152,30 @@ switch ($_GET["op"]){
 
 	break;
 
+	case '6':
+		$rspta = $venta->reporte();
+		$data = array();
+	
+		// Verifica si la consulta devolvió resultados
+		if ($rspta) {
+			// Obtenemos el resultado como un array asociativo
+			$row = $rspta->fetch_assoc();
+	
+			// Verificamos que se obtuvieron datos
+			if ($row) {
+				// Construimos la cadena con los valores obtenidos y usando <br> para saltos de línea
+				$response = "Total de vasos vendidos: " . $row['total_vasos_vendidos'] . "<br>" .
+							"Total en efectivo: " . $row['suma_total_venta'] . "<br>" .
+							"Total de ventas en QR: " . $row['suma_total_venta_qr'];
+			}
+		}
+		
+		echo json_encode($response);
+		break;
+
+
+		
+
+
 }
 ?>
