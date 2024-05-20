@@ -4,7 +4,7 @@ require_once "../model/Sabor.php";
 $sabor=new Sabor();
 
 $id_sabor=isset($_POST["id_sabor"])? $_POST["id_sabor"]:"";
-$nombre_sabor=isset($_POST["nombre_sabor"])? mb_strtoupper($_POST["nombre_sabor"]):"";
+$nombre_sabor=isset($_POST["nombre_sabor"])? strtoupper($_POST["nombre_sabor"]):"";
 
 switch ($_GET["op"]){
 	case '0':

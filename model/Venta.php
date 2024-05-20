@@ -89,8 +89,10 @@ Class Venta
 
 	public function listar1()
 	{
+		$fecha_HoraActual= date('Y-m-d H:i:s');
+	    $fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
 		// Obtener la fecha actual en formato YYYY-MM-DD
-		$fecha_actual = date('Y-m-d');
+		$fecha_actual = date('Y-m-d', strtotime($fecha_utc_4));
 		
 		// Consulta SQL para seleccionar las ventas del día actual
 		$sql = "SELECT v.id_venta, v.cliente_venta, v.fecha_venta, v.total_venta,v.total_venta_qr, SUM(d.cant_venta) as cant_vasos, v.estado_venta 
@@ -107,13 +109,16 @@ Class Venta
 
 	public function reporte()
 	{
+		$fecha_HoraActual= date('Y-m-d H:i:s');
+	    $fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
 		// Obtener la fecha actual en formato YYYY-MM-DD
-		$fecha_actual = date('Y-m-d');
+		$fecha_actual = date('Y-m-d', strtotime($fecha_utc_4));
+		
 		
 		// Consulta SQL para seleccionar las ventas del día actual
 		$sql = "SELECT 
-		(SELECT SUM(total_venta) FROM venta WHERE fecha_venta LIKE '2024-05-17%' AND estado_venta = 2) AS suma_total_venta,
-		(SELECT SUM(total_venta_qr) FROM venta WHERE fecha_venta LIKE '2024-05-17%' AND estado_venta = 2) AS suma_total_venta_qr,
+		(SELECT SUM(total_venta) FROM venta WHERE fecha_venta LIKE '$fecha_actual%' AND estado_venta = 2) AS suma_total_venta,
+		(SELECT SUM(total_venta_qr) FROM venta WHERE fecha_venta LIKE '$fecha_actual%' AND estado_venta = 2) AS suma_total_venta_qr,
 		(SELECT SUM(dv.cant_venta)
 		 FROM venta v
 		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta

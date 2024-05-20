@@ -293,39 +293,65 @@ var i=0;
 $("#btnGuardar").hide();
 
 
-  function agregarBubaB() {
-    var cantidad=1;
-    var precio_venta=14;
+function agregarBubaB() {
+    var cantidad = 1;
+    var precio_venta = 14;
+    var subtotal = cantidad * precio_venta;
 
-    
-        var subtotal=cantidad*precio_venta;
-        var fila='<tr class="filas" id="fila'+cont+'">'+
-        '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle('+cont+')">X</button></td>'+
-        '<td><input type="text" class="form-control" name="cantidad[]" id="cantidad[]" value="'+cantidad+'"></td>'+
-        '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]'+i+'" ></select> </td>'+
-        '<td><select class="select2 id_buba" name="id_buba[]"></select> </td>'+
-        '<td><select class="select2 id_tamanio" name="id_tamanio[]"></select> </td>'+
-        '<td><select class="select2" name="tipo_pago[]"><option value="0">Efect</option><option value="2">QR</option></select> </td>'+
-        '<td><input type="text" class="form-control" name="precio_venta[]" id="precio_venta[]" value="'+precio_venta+'"></td>'+
-        '<td><span name="subtotal[]" id="subtotal[]'+cont+'">'+subtotal+'</span></td>'+
-        '<td><button type="button" onclick="modificarSubototales()" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></button></td>'+
+    var fila = '<tr class="filas" id="fila' + cont + '">' +
+        '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle(' + cont + ')">X</button></td>' +
+        '<td><input type="text" class="form-control" name="cantidad[]" id="cantidad[]" value="' + cantidad + '"></td>' +
+        '<td><select class="select2 id_sabor" name="id_sabor[]" id="id_sabor[]' + cont + '"></select></td>' +
+        '<td><select class="select2 id_buba" name="id_buba[]"></select></td>' +
+        '<td><select class="select2 id_tamanio" name="id_tamanio[]" onchange="actualizarTamanio(this)"></select></td>' +
+        '<td><select class="select2" name="tipo_pago[]"><option value="0">Efect</option><option value="2">QR</option></td>' +
+        '<td><input type="text" class="form-control" name="precio_venta[]" id="precio_venta[]" value="' + precio_venta + '"></td>' +
+        '<td><span name="subtotal[]" id="subtotal[]' + cont + '">' + subtotal + '</span></td>' +
+        '<td><button type="button" onclick="modificarSubototales()" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></button></td>' +
         '</tr>';
     cont++;
     detalles++;
     $('#detalles').append(fila);
     cargarSabores();
-	cargarBubas();
-	cargarTamanios();
+    cargarBubas();
+    cargarTamanios();
     modificarSubototales();
 }
 
+function actualizarTamanio(select) {
+    var opcionSeleccionada = $(select).find('option:selected').text();
+    var fila = $(select).closest('tr'); // Encuentra la fila más cercana
+
+    // Actualiza el campo precio_venta con el texto de la opción seleccionada
+    fila.find('input[name="precio_venta[]"]').val(opcionSeleccionada);
+
+    // Actualiza el subtotal
+    var cantidad = fila.find('input[name="cantidad[]"]').val();
+    var nuevoSubtotal = cantidad * parseFloat(opcionSeleccionada);
+    fila.find('span[name="subtotal[]"]').text(nuevoSubtotal.toFixed(2));
+    
+    modificarSubototales(); // Actualiza los subtotales generales
+}
 function cargarSabores() {
     $('.id_sabor').each(function() {
         var select = $(this);
+        var selectedValue = select.val(); // Guarda el valor seleccionado actualmente
+
         $.post("../ajax/sabor.php?op=5", function(r) {
-            select.html(r);
+            // Añadir una opción vacía al inicio del select
+            select.html('<option value="" disabled>Seleccione un sabor</option>' + r);
+
+            // Restaurar el valor seleccionado si existe
+            if (selectedValue) {
+                select.val(selectedValue);
+            }
+
+            // Si el valor seleccionado no existe en las nuevas opciones, selecciona la opción vacía
+            if (!select.val()) {
+                select.val('');
+            }
+
             select.trigger('change.select2');
-            
         });
     });
 }
@@ -333,10 +359,24 @@ function cargarSabores() {
 function cargarBubas() {
     $('.id_buba').each(function() {
         var select = $(this);
+        var selectedValue = select.val(); // Guarda el valor seleccionado actualmente
+
         $.post("../ajax/buba.php?op=5", function(r) {
-            select.html(r);
-            //select.trigger('change.select2');
-            
+            // Añadir una opción vacía al inicio del select
+            select.html('<option value="" disabled>Seleccione una buba</option>' + r);
+
+            // Restaurar el valor seleccionado si existe
+            if (selectedValue) {
+                select.val(selectedValue);
+            }
+
+            // Si el valor seleccionado no existe en las nuevas opciones, selecciona la opción vacía
+            if (!select.val()) {
+                select.val('');
+            }
+
+            // Actualizar select2 si estás usando select2 en este select
+            select.trigger('change.select2');
         });
     });
 }
@@ -344,14 +384,27 @@ function cargarBubas() {
 function cargarTamanios() {
     $('.id_tamanio').each(function() {
         var select = $(this);
+        var selectedValue = select.val(); // Guarda el valor seleccionado actualmente
+
         $.post("../ajax/tamanio.php?op=5", function(r) {
-            select.html(r);
+            // Añadir una opción vacía al inicio del select
+            select.html('<option value="" disabled>Seleccione un tamaño</option>' + r);
+
+            // Restaurar el valor seleccionado si existe
+            if (selectedValue) {
+                select.val(selectedValue);
+            }
+
+            // Si el valor seleccionado no existe en las nuevas opciones, selecciona la opción vacía
+            if (!select.val()) {
+                select.val('');
+            }
+
+            // Actualizar select2 si estás usando select2 en este select
             select.trigger('change.select2');
-            
         });
     });
 }
-
 
 function modificarSubototales()
 {

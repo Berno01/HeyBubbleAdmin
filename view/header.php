@@ -129,6 +129,14 @@
                                 </div>
                             </div>
                         </li>
+
+                        <li class="dropdown dropdown-animated scale-left">
+                            <a href="inventario.php">
+                            <i class="fa-solid fa-box-open"></i>
+                            </a>
+                            
+                        </li>
+
                         
                         
                     </ul>
