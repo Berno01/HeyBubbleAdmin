@@ -68,6 +68,12 @@ Class Sabor
 		return ejecutarConsulta($sql);		
 	}
 
+	public function selectTipo()
+	{
+		$sql="SELECT * FROM pago";
+		return ejecutarConsulta($sql);		
+	}
+
 	//Implementar un método para listar los registros
 	public function comprueba_duplicados($codigo,$id)
 	{

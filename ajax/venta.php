@@ -67,51 +67,27 @@ switch ($_GET["op"]){
 	break;
 
 	case '4':
-		//Recibimos el id_venta
-		$id=$_GET['id'];
-		$qr=$_GET['qr'];
-		$total_ventaklk=$_GET['total'];
+		// Recibimos el id_venta
+		$id = $_GET['id'];
+		$qr = $_GET['qr'];
+		$total_ventaklk = $_GET['total'];
 		$rspta = $venta->listarDetalle($id);
 		
-		echo '<thead style="background-color:#f378b1">
-									<th>Op</th>
-									<th>Cantidad</th>
-                                    <th>Sabor</th>
-                                    <th>Buba</th>
-                                    <th>Tamaño</th>
-									<th>Pago</th>
-									<th>Precio Unitario</th>
-                                    <th>Subtotal</th>
-									<th>Refresh</th>
-                                </thead>';
-
-        while ($reg = mysqli_fetch_assoc($rspta)){	
-					echo '<tr class="filas">
-							<td></td>
-							<td>'.$reg['cant_venta'].'</td>
-							<td>'.$reg['nombre_sabor'].'</td>
-							<td>'.$reg['nombre_buba'].'</td>
-							<td>'.$reg['precio_tamanio'].'</td>
-							<td>'.$reg['nombre_tipo_pago'].'</td>
-							<td>'.$reg['precio_venta'].'</td>
-							<td>'.$reg['precio_venta']*$reg['cant_venta'].'</td>
-							<td></td>
-						 </tr>';
-					
-				}
-		echo '<tfoot>
-                                    <th>TOTAL</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-									<th></th>
-                                    <th><h4 id="total">Bs/.'.$total_ventaklk.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
-									<th><h4 id="total_qr">QR/.'.$qr.'</h4><input type="hidden" name="total_total_venta_qr" id="total_total_venta_qr"></th> 
-									<th></th>
-                                </tfoot>';
-	break;
-
+		$detalles = array();
+		while ($reg = mysqli_fetch_assoc($rspta)){
+			$detalles[] = array(
+				'id' => $reg['id_detalle_venta'], // Asegúrate de tener un identificador único para cada detalle
+				'cant_venta' => $reg['cant_venta'],
+				'id_sabor' => $reg['id_sabor'],
+				'id_buba' => $reg['id_buba'],
+				'id_tamanio' => $reg['id_tamanio'],
+				'id_tipo_pago' => $reg['id_tipo_pago'],
+				'precio_venta' => $reg['precio_venta']
+			);
+		}
+		
+		echo json_encode($detalles);
+		break;
 	case '5':
 		$rspta=$venta->entregar($id_venta);
  		echo $rspta ? "1:El pedido fue entregado!" : "0:Pedido no se pudo entregar";

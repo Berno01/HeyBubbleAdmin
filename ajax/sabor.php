@@ -66,5 +66,14 @@ switch ($_GET["op"]){
 		}
 			 
 	break;
+
+	case '6':
+		$rspta = $sabor->selectTipo();
+		while ($reg = mysqli_fetch_assoc($rspta))
+		{
+			echo '<option value=' . $reg['id_tipo_pago'] . '>' . $reg['nombre_tipo_pago'] . '</option>';
+		}
+			 
+	break;
 }
 ?>

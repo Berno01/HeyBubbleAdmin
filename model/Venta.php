@@ -71,7 +71,7 @@ Class Venta
 
 	public function listarDetalle($id_venta)
 	{
-		$sql="SELECT di.id_venta, di.id_buba, b.nombre_buba, di.id_sabor, s.nombre_sabor, di.id_tamanio,t.precio_tamanio,di.precio_venta , di.cant_venta, di.precio_venta, di.id_tipo_pago, tp.nombre_tipo_pago FROM detalle_venta di inner join buba b on di.id_buba=b.id_buba inner join sabor s on di.id_sabor=s.id_sabor inner join tamanio t on di.id_tamanio=t.id_tamanio inner join pago tp on di.id_tipo_pago=tp.id_tipo_pago where di.id_venta='$id_venta';";
+		$sql="SELECT di.id_venta, di.id_detalle_venta, di.id_buba, b.nombre_buba, di.id_sabor, s.nombre_sabor, di.id_tamanio,t.precio_tamanio,di.precio_venta , di.cant_venta, di.precio_venta, di.id_tipo_pago, tp.nombre_tipo_pago FROM detalle_venta di inner join buba b on di.id_buba=b.id_buba inner join sabor s on di.id_sabor=s.id_sabor inner join tamanio t on di.id_tamanio=t.id_tamanio inner join pago tp on di.id_tipo_pago=tp.id_tipo_pago where di.id_venta='$id_venta';";
 		return ejecutarConsulta($sql);
 	}
 
