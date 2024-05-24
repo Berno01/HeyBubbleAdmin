@@ -176,18 +176,18 @@ function agregarFilaDetalle(detalle) {
     var subtotal = detalle.cant_venta * detalle.precio_venta;
     var fila = '<tr class="filas" id="fila' + detalle.id + '">' +
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle(' + detalle.id + ')">X</button></td>' +
-        '<td><input type="number" name="cantidad[]" value="' + detalle.cant_venta + '" onblur="modificarSubtotal(' + detalle.id + ')"></td>' +
-        '<td><select name="sabor[]" id="sabor' + detalle.id + '" class="id_sabor"></select></td>' +
-        '<td><select name="buba[]" id="buba' + detalle.id + '" class="id_buba"></select></td>' +
-        '<td><select name="tamanio[]" id="tamanio' + detalle.id + '" class="id_tamanio"></select></td>' +
-        '<td><select name="pago[]" id="pago' + detalle.id + '" class="id_pago"></select></td>' +
+        '<td><input type="number" name="cantidad[]" value="' + detalle.cant_venta + '"></td>' +
+        '<td><select name="id_sabor[]" class="select2 id_sabor"></select></td>' +
+        '<td><select name="id_buba[]"  class="select2 id_buba"></select></td>' +
+        '<td><select name="id_tamanio[]" class="select2 id_tamanio" onchange="actualizarTamanio(this)></select></td>' +
+        '<td><select name="tipo_pago[]" class="select2 id_pago"><option value="0">Efect</option></select></td>' +
         '<td><input type="text" name="precio_venta[]" id="precio_venta[]" value="' + detalle.precio_venta + '"></td>' +
-        '<td><span name="subtotal[]" id="subtotal' + detalle.id + '">' + subtotal + '</span></td>' +
-        '<td><button type="button" class="btn btn-info" onclick="refreshDetalle(' + detalle.id + ')">Refresh</button></td>' +
+        '<td><span name="subtotal[]" id="subtotal[]' + detalle.id + '">' + subtotal + '</span></td>' +
+        '<td><button type="button" onclick="modificarSubototales()" class="btn btn-warning"><i class="fa-solid fa-rotate-right"></i></button></td>' +
         '</tr>';
 
     $("#detalles").append(fila);
-
+    console.log(detalle.id_tipo_pago);
     // Aquí puedes llamar a las funciones que cargan los valores de los selects
     cargarSabores(detalle.id, detalle.id_sabor);
     cargarBubas(detalle.id, detalle.id_buba);
@@ -356,16 +356,16 @@ function actualizarTamanio(select) {
     
     modificarSubototales(); // Actualiza los subtotales generales
 }
-function cargarTamanios(id, selectedTamanio = null) {
-    var select = id ? $("#id_tamanio" + id) : $(".id_tamanio");
+function cargarTamanios(detalleId = null, selectedTamanio = null) {
+    var select = detalleId ? $("#fila" + detalleId + " .id_tamanio") : $(".id_tamanio");
     
     select.each(function() {
         var selectElem = $(this);
-        var selectedValue = selectElem.val(); // Guarda el valor seleccionado actualmente
+        var selectedValue = selectedTamanio ? selectedTamanio : selectElem.val(); // Usa selectedTamanio si se proporciona
 
         $.post("../ajax/tamanio.php?op=5", function(data) {
             // Añadir una opción vacía al inicio del select
-            selectElem.html('<option value="" disabled>Seleccione un tamaño</option>' + data);
+            selectElem.html(data);
 
             // Restaurar el valor seleccionado si existe
             if (selectedValue) {
@@ -381,16 +381,17 @@ function cargarTamanios(id, selectedTamanio = null) {
     });
 }
 
-function cargarSabores(id, selectedSabor = null) {
-    var select = id ? $("#id_sabor" + id) : $(".id_sabor");
+
+function cargarSabores(detalleId = null, selectedSabor = null) {
+    var select = detalleId ? $("#fila" + detalleId + " .id_sabor") : $(".id_sabor");
     
     select.each(function() {
         var selectElem = $(this);
-        var selectedValue = selectElem.val(); // Guarda el valor seleccionado actualmente
+        var selectedValue = selectedSabor ? selectedSabor : selectElem.val(); // Usa selectedSabor si se proporciona
 
         $.post("../ajax/sabor.php?op=5", function(data) {
             // Añadir una opción vacía al inicio del select
-            selectElem.html('<option value="" disabled>Seleccione un sabor</option>' + data);
+            selectElem.html(data);
 
             // Restaurar el valor seleccionado si existe
             if (selectedValue) {
@@ -406,12 +407,12 @@ function cargarSabores(id, selectedSabor = null) {
     });
 }
 
-function cargarBubas(id, selectedBuba = null) {
-    var select = id ? $("#id_buba" + id) : $(".id_buba");
+function cargarBubas(detalleId = null, selectedBuba = null) {
+    var select = detalleId ? $("#fila" + detalleId + " .id_buba") : $(".id_buba");
     
     select.each(function() {
         var selectElem = $(this);
-        var selectedValue = selectElem.val(); // Guarda el valor seleccionado actualmente
+        var selectedValue = selectedBuba ? selectedBuba : selectElem.val(); // Usa selectedBuba si se proporciona
 
         $.post("../ajax/buba.php?op=5", function(data) {
             // Añadir una opción vacía al inicio del select
@@ -431,21 +432,26 @@ function cargarBubas(id, selectedBuba = null) {
     });
 }
 
-function cargarTiposPago(id, selectedPago = null) {
-    var select = id ? $("#pago" + id) : $(".id_pago");
+function cargarTiposPago(detalleId = null, selectedPago = null) {
+    var select = detalleId ? $("#fila" + detalleId + " .id_pago") : $(".id_pago");
     
     select.each(function() {
         var selectElem = $(this);
+
         $.post("../ajax/sabor.php?op=6", function(data) {
-            // Aquí asumimos que 'data' ya es HTML válido
+            // Asumimos que 'data' ya es HTML válido
             selectElem.html(data);
+
+            // Restaurar el valor seleccionado si existe
             if (selectedPago) {
                 selectElem.val(selectedPago);
             }
+
             selectElem.trigger('change.select2');
         });
     });
 }
+
 
 function modificarSubototales()
 {
