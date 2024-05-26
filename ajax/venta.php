@@ -35,7 +35,7 @@ switch ($_GET["op"]){
 				"4"=>$hora,
                 "5"=>$reg['total_venta'],
 				"6"=>$reg['total_venta_qr'],
-				"7"=>'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
+				"7"=>'<button class="btn btn-warning" onclick="mostrarSE('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
 				"8"=>$reg['id_venta']
 				);
 		}
@@ -52,6 +52,11 @@ switch ($_GET["op"]){
 			$rspta=$venta->insertar($cliente_venta, $total_venta,
 			$_POST["cantidad"], $_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["precio_venta"],$_POST["tipo_pago"]);
 			echo $rspta ? "1:No olvides confirmar la entrega después" : "0:No se pudieron registrar todos los datos del ingreso";
+		}
+		else{
+			$rspta=$venta->actualizar($id_venta, $cliente_venta, $total_venta,
+			$_POST["cantidad"], $_POST["id_buba"],$_POST["id_tamanio"],$_POST["id_sabor"],$_POST["precio_venta"],$_POST["tipo_pago"]);
+			echo $rspta ? "1:Pedido Actualizado! :D" : "0:No se pudieron registrar todos los datos del ingreso";
 		}
 	break;
 
@@ -93,6 +98,78 @@ switch ($_GET["op"]){
  		echo $rspta ? "1:El pedido fue entregado!" : "0:Pedido no se pudo entregar";
 	break;
 
+	case '6':
+			$rspta = $venta->reporte();
+			$data = array();
+		
+			// Verifica si la consulta devolvió resultados
+			if ($rspta) {
+				// Obtenemos el resultado como un array asociativo
+				$row = $rspta->fetch_assoc();
+		
+				// Verificamos que se obtuvieron datos
+				if ($row) {
+					// Construimos la cadena con los valores obtenidos y usando <br> para saltos de línea
+					$response = 'REPORTE DIARIO DE VENTAS<br>' .
+								'--Vasos de 14: ' . $row['vasos14'] . '<br>' .
+								'--Vasos de 16: ' . $row['vasos16'] . '<br>' .
+								'--Vasos de 20: ' . $row['vasos20'] . '<br>' .
+								'--Botellas de 22: ' . $row['vasos22'] . '<br>' .
+								'--Vasos de 25: ' . $row['vasos25'] . '<br>' .
+								'Total de vasos vendidos: ' . $row['total_vasos_vendidos'] . '<br>' .
+								'Total en efectivo: ' . $row['suma_total_venta'] . '<br>' .
+								'Total de ventas en QR: ' . $row['suma_total_venta_qr'];
+				}
+			}
+			echo json_encode($response);
+	break;
+
+
+	case '7':
+		//Recibimos el id_venta
+		$id=$_GET['id'];
+		$qr=$_GET['qr'];
+		$total_ventaklk=$_GET['total'];
+		$rspta = $venta->listarDetalle($id);
+		
+		echo '<thead style="background-color:#f378b1">
+									<th>Op</th>
+									<th>Cantidad</th>
+                                    <th>Sabor</th>
+                                    <th>Buba</th>
+                                    <th>Tamaño</th>
+									<th>Pago</th>
+									<th>Precio Unitario</th>
+                                    <th>Subtotal</th>
+									<th>Refresh</th>
+                                </thead>';
+
+        while ($reg = mysqli_fetch_assoc($rspta)){	
+					echo '<tr class="filas">
+							<td></td>
+							<td>'.$reg['cant_venta'].'</td>
+							<td>'.$reg['nombre_sabor'].'</td>
+							<td>'.$reg['nombre_buba'].'</td>
+							<td>'.$reg['precio_tamanio'].'</td>
+							<td>'.$reg['nombre_tipo_pago'].'</td>
+							<td>'.$reg['precio_venta'].'</td>
+							<td>'.$reg['precio_venta']*$reg['cant_venta'].'</td>
+							<td></td>
+						 </tr>';
+					
+				}
+		echo '<tfoot>
+                                    <th>TOTAL</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+									<th></th>
+                                    <th><h4 id="total">Bs/.'.$total_ventaklk.'</h4><input type="hidden" name="total_total_venta" id="total_total_venta"></th> 
+									<th><h4 id="total_qr">QR/.'.$qr.'</h4><input type="hidden" name="total_total_venta_qr" id="total_total_venta_qr"></th> 
+									<th></th>
+                                </tfoot>';
+	break;
 
 	case '10':
 		$rspta=$venta->listar1();
@@ -112,12 +189,13 @@ switch ($_GET["op"]){
 				"3"=>$hora,
                 "4"=>$reg['total_venta'],
 				"5"=>$reg['total_venta_qr'],
-				"6"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>'.
+				"6"=>($reg['estado_venta']=='1')?'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-pencil"></i></button>'.
 					'<button class="btn btn-success" onclick="entregar('.$reg['id_venta'].')"><i class="fa-solid fa-thumbs-up"></i></button>'.
 					'<button class="btn btn-danger" onclick="cancelar('.$reg['id_venta'].')"><i class="fa-solid fa-trash-can"></i></button>' :
-					'<button class="btn btn-warning" onclick="mostrar('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
+					'<button class="btn btn-warning" onclick="mostrarSE('.$reg['id_venta'].')"><i class="fa-solid fa-eye"></i></button>',
 				"7"=>$reg['id_venta']
 				);
+				
 		}
  		$results = array(
  			"sEcho"=>1, //Información para el datatables
@@ -128,26 +206,7 @@ switch ($_GET["op"]){
 
 	break;
 
-	case '6':
-		$rspta = $venta->reporte();
-		$data = array();
 	
-		// Verifica si la consulta devolvió resultados
-		if ($rspta) {
-			// Obtenemos el resultado como un array asociativo
-			$row = $rspta->fetch_assoc();
-	
-			// Verificamos que se obtuvieron datos
-			if ($row) {
-				// Construimos la cadena con los valores obtenidos y usando <br> para saltos de línea
-				$response = "Total de vasos vendidos: " . $row['total_vasos_vendidos'] . "<br>" .
-							"Total en efectivo: " . $row['suma_total_venta'] . "<br>" .
-							"Total de ventas en QR: " . $row['suma_total_venta_qr'];
-			}
-		}
-		
-		echo json_encode($response);
-		break;
 
 
 		

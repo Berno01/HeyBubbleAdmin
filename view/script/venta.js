@@ -165,7 +165,7 @@ function mostrar(id_venta)
 		$("#btnGuardar").hide();
 		$("#btnCancelar").show();
 		$("#btnAgregarBuba").hide();
-		$.post("../ajax/venta.php?op=4&id="+id_venta+"&qr="+qr+"&total="+total,function(r){
+		$.post("../ajax/venta.php?op=7&id="+id_venta+"&qr="+qr+"&total="+total,function(r){
 			$("#detalles").html(r);
 		});
 

@@ -48,6 +48,7 @@ include("header.php");
                                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Cliente:</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" id="cliente_venta" name="cliente_venta" placeholder="Nombre del cliente">
+                                                    <input type="text" class="form-control" id="id_venta" name="id_venta" hidden>
                                                 </div>
                                             </div> 
                                             

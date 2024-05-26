@@ -23,7 +23,7 @@ function limpiar()
 	$("#total").html("0");
 	$("#total_qr").html("");
 	$("#cliente_venta").val("");
-	
+	$("#id_venta").val("");
     
 
 }
@@ -142,21 +142,46 @@ function guardaryeditar(e)
 	});
 	limpiar();
 }
+function mostrarSE(id_venta)
+{
+	var qr=0;
+	$.post("../ajax/venta.php?op=3",{id_venta : id_venta}, function(data, status)
+	{
+        
+		data = JSON.parse(data);		
+		mostrarform(true);
 
+		$("#cliente_venta").val(data.cliente_venta);
+		qr=data.total_venta_qr;
+		total=data.total_venta;
+		//$("#fecha_hora").val(data.fecha);
+		//$("#idingreso").val(data.idingreso);
+
+		//Ocultar y mostrar los botones
+		$("#btnGuardar").hide();
+		$("#btnCancelar").show();
+		$("#btnAgregarBuba").hide();
+		$.post("../ajax/venta.php?op=7&id="+id_venta+"&qr="+qr+"&total="+total,function(r){
+			$("#detalles").html(r);
+		});
+
+ 	});
+ 	
+}
 function mostrar(id_venta) {
     var qr = 0;
     $.post("../ajax/venta.php?op=3", {id_venta: id_venta}, function(data, status) {
         data = JSON.parse(data);		
         mostrarform(true);
-
+        $("#id_venta").val(data.id_venta);
         $("#cliente_venta").val(data.cliente_venta);
         qr = data.total_venta_qr;
         total = data.total_venta;
 
         // Ocultar y mostrar los botones
-        $("#btnGuardar").hide();
+        $("#btnGuardar").show();
         $("#btnCancelar").show();
-        $("#btnAgregarBuba").hide();
+        //$("#btnAgregarBuba").hide();
 
         // Obtener detalles
         $.post("../ajax/venta.php?op=4&id=" + id_venta + "&qr=" + qr + "&total=" + total, function(response) {
@@ -169,17 +194,20 @@ function mostrar(id_venta) {
             $("#total_qr").html("QR/." + qr);
             // Aquí puedes agregar más lógica para actualizar cualquier otra parte de la interfaz.
         });
+        evaluar();
+        
     });
 }
-
+var detalles=0;
 function agregarFilaDetalle(detalle) {
+    detalles = detalle.id;
     var subtotal = detalle.cant_venta * detalle.precio_venta;
     var fila = '<tr class="filas" id="fila' + detalle.id + '">' +
         '<td><button type="button" class="btn btn-danger" onclick="eliminarDetalle(' + detalle.id + ')">X</button></td>' +
-        '<td><input type="number" name="cantidad[]" value="' + detalle.cant_venta + '"></td>' +
+        '<td><input type="text" name="cantidad[]" value="' + detalle.cant_venta + '"></td>' +
         '<td><select name="id_sabor[]" class="select2 id_sabor"></select></td>' +
         '<td><select name="id_buba[]"  class="select2 id_buba"></select></td>' +
-        '<td><select name="id_tamanio[]" class="select2 id_tamanio" onchange="actualizarTamanio(this)></select></td>' +
+        '<td><select name="id_tamanio[]" class="select2 id_tamanio" onchange="actualizarTamanio(this)"></select></td>' +
         '<td><select name="tipo_pago[]" class="select2 id_pago"><option value="0">Efect</option></select></td>' +
         '<td><input type="text" name="precio_venta[]" id="precio_venta[]" value="' + detalle.precio_venta + '"></td>' +
         '<td><span name="subtotal[]" id="subtotal[]' + detalle.id + '">' + subtotal + '</span></td>' +
@@ -194,6 +222,7 @@ function agregarFilaDetalle(detalle) {
     cargarTamanios(detalle.id, detalle.id_tamanio);
     cargarTiposPago(detalle.id, detalle.id_tipo_pago);
     modificarSubototales(); 
+    
 }
 function reporte()
 {
@@ -311,13 +340,14 @@ function entregar(id_venta)
 //Declaración de variables necesarias para trabajar con las compras y
 //sus detalles
 var cont=0;
-var detalles=0;
+
 var i=0;
 //$("#guardar").hide();
-$("#btnGuardar").hide();
+//$("#btnGuardar").hide();
 
 
 function agregarBubaB() {
+    
     var cantidad = 1;
     var precio_venta = 14;
     var subtotal = cantidad * precio_venta;
@@ -482,15 +512,16 @@ function calcularTotales(){
 }
 
 function evaluar(){
-    if (detalles>0)
+    if (detalles>0 )
     {
         $("#btnGuardar").show();
     }
-    else
+    else if(detalles<1 && !$('#id_venta').val())
     {
         $("#btnGuardar").hide(); 
         cont=0;
-    }
+    } 
+    
 }
 
 function eliminarDetalle(indice){

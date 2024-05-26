@@ -11,14 +11,46 @@ Class Venta
 	}
 
 //Implementamos un método para insertar registros
-	public function insertar($cliente_venta,$total_venta,$cant_venta,$id_buba,$id_tamanio,$id_sabor,$precio_venta, $tipo_pago)
+public function insertar($cliente_venta,$total_venta,$cant_venta,$id_buba,$id_tamanio,$id_sabor,$precio_venta, $tipo_pago)
+{
+	$fecha_HoraActual= date('Y-m-d H:i:s');
+	$fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
+	$sql="INSERT INTO venta (cliente_venta, fecha_venta) VALUES('$cliente_venta', '$fecha_utc_4');";
+	ejecutarConsulta($sql);
+	
+	$id_venta_new = retornarUltimoID();
+	$num_elementos=0;
+	$qr=0;
+	$sw=true;
+	// Convertir $total_venta de cadena a float
+	$total_venta = floatval($total_venta);
+
+	while ($num_elementos < count($id_tamanio))
 	{
-	    $fecha_HoraActual= date('Y-m-d H:i:s');
-	    $fecha_utc_4=date('Y-m-d H:i:s', strtotime($fecha_HoraActual .' -4 hours'));
-		$sql="INSERT INTO venta (cliente_venta, total_venta,total_venta_qr, fecha_venta) VALUES('$cliente_venta',$total_venta,0, '$fecha_utc_4');";
+		if($tipo_pago[$num_elementos]=='1'||$tipo_pago[$num_elementos]=='2' )
+		{
+			$qr=$qr + ($cant_venta[$num_elementos]*$precio_venta[$num_elementos]);
+		}
+		$sql_detalle = "INSERT INTO detalle_venta
+		(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta, id_tipo_pago) 
+		VALUES 
+		('$id_venta_new', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
+		,'$cant_venta[$num_elementos]','$precio_venta[$num_elementos]','$tipo_pago[$num_elementos]')";
+		ejecutarConsulta($sql_detalle);
+		$num_elementos=$num_elementos + 1;
+	}// Restar $qr de $total_venta
+	$total_venta =$total_venta - $qr;
+	$sql="update venta set total_venta_qr=$qr, total_venta =$total_venta where id_venta=$id_venta_new;";
+	ejecutarConsulta($sql);
+	
+	return $sw;
+}
+	
+
+	public function actualizar($id_venta,$cliente_venta,$total_venta,$cant_venta,$id_buba,$id_tamanio,$id_sabor,$precio_venta, $tipo_pago)
+	{
+	    $sql="Delete from detalle_venta where id_venta=$id_venta;";
 		ejecutarConsulta($sql);
-		
-		$id_venta_new = retornarUltimoID();
 		$num_elementos=0;
 		$qr=0;
 		$sw=true;
@@ -35,17 +67,19 @@ Class Venta
 			$sql_detalle = "INSERT INTO detalle_venta
 			(id_venta, id_tamanio, id_sabor, id_buba, cant_venta,precio_venta, id_tipo_pago) 
             VALUES 
-			('$id_venta_new', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
+			('$id_venta', '$id_tamanio[$num_elementos]', '$id_sabor[$num_elementos]', '$id_buba[$num_elementos]'
 			,'$cant_venta[$num_elementos]','$precio_venta[$num_elementos]','$tipo_pago[$num_elementos]')";
 			ejecutarConsulta($sql_detalle);
 			$num_elementos=$num_elementos + 1;
 		}// Restar $qr de $total_venta
 		$total_venta =$total_venta - $qr;
-		$sql="update venta set total_venta_qr=$qr, total_venta =$total_venta where id_venta=$id_venta_new;";
+		$sql="update venta set total_venta_qr=$qr, total_venta =$total_venta, cliente_venta='$cliente_venta' where id_venta=$id_venta;";
 		ejecutarConsulta($sql);
 		return $sw;
 	}
-	
+
+
+
 	//Implementamos un método para anular categorías
 	public function cancelar($id_venta)
 	{
@@ -71,7 +105,10 @@ Class Venta
 
 	public function listarDetalle($id_venta)
 	{
-		$sql="SELECT di.id_venta, di.id_detalle_venta, di.id_buba, b.nombre_buba, di.id_sabor, s.nombre_sabor, di.id_tamanio,t.precio_tamanio,di.precio_venta , di.cant_venta, di.precio_venta, di.id_tipo_pago, tp.nombre_tipo_pago FROM detalle_venta di inner join buba b on di.id_buba=b.id_buba inner join sabor s on di.id_sabor=s.id_sabor inner join tamanio t on di.id_tamanio=t.id_tamanio inner join pago tp on di.id_tipo_pago=tp.id_tipo_pago where di.id_venta='$id_venta';";
+		$sql="SELECT di.id_venta, di.id_detalle_venta, di.id_buba, b.nombre_buba, di.id_sabor, s.nombre_sabor, di.id_tamanio,t.precio_tamanio,
+		di.precio_venta , di.cant_venta, di.precio_venta, di.id_tipo_pago, tp.nombre_tipo_pago FROM detalle_venta di inner join buba b on 
+		di.id_buba=b.id_buba inner join sabor s on di.id_sabor=s.id_sabor inner join tamanio t on di.id_tamanio=t.id_tamanio inner join 
+		pago tp on di.id_tipo_pago=tp.id_tipo_pago where di.id_venta='$id_venta';";
 		return ejecutarConsulta($sql);
 	}
 
@@ -122,7 +159,28 @@ Class Venta
 		(SELECT SUM(dv.cant_venta)
 		 FROM venta v
 		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
-		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2) AS total_vasos_vendidos";
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2) AS total_vasos_vendidos,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2 AND dv.id_tamanio = 1) AS vasos14,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2 AND dv.id_tamanio = 2) AS vasos16,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2 AND dv.id_tamanio = 3) AS vasos20,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2 AND dv.id_tamanio = 4) AS vasos22,
+		(SELECT SUM(dv.cant_venta)
+		 FROM venta v
+		 JOIN detalle_venta dv ON v.id_venta = dv.id_venta
+		 WHERE v.fecha_venta LIKE '$fecha_actual%' AND v.estado_venta = 2 AND dv.id_tamanio = 5) AS vasos25
+	";
 		
 		// Ejecutar la consulta y devolver el resultado
 		return ejecutarConsulta($sql);        
